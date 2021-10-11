@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Memory</string>
+    <string name="play">ИГРАЈ</string>
+    <string name="title">ИГРА МЕМОРИЈЕ</string>
 </resources>
