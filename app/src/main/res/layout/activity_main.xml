@@ -47,8 +47,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_bunny" />
 
-
-
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="@dimen/_250sdp"
