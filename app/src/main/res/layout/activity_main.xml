@@ -52,6 +52,7 @@
         android:background="@drawable/ic_board"
         android:gravity="center"
         android:paddingBottom="@dimen/_100sdp"
+        android:paddingTop="@dimen/_3sdp"
         android:text="@string/title"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -76,7 +77,6 @@
         android:layout_height="@dimen/_75sdp"
         android:layout_marginStart="@dimen/_70sdp"
         android:layout_marginEnd="@dimen/_50sdp"
-        android:layout_marginBottom="@dimen/_30sdp"
         android:background="@drawable/ic_btn"
         android:clickable="true"
         android:gravity="center"
@@ -88,6 +88,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/board_img"
         app:layout_constraintEnd_toEndOf="@+id/board_img"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/board_img" />
+        app:layout_constraintStart_toStartOf="@+id/board_img"
+        app:layout_constraintTop_toTopOf="@+id/board_img"
+        app:layout_constraintVertical_bias="0.882" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
