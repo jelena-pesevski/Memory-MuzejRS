@@ -47,7 +47,7 @@ public class GameActivity extends AppCompatActivity {
                 //makeAnimation(imageView1, 0, "ic_bird2", "ic_bird2");
 
                 flipImageAnimation(imageView1, true, "ic_bird2", "ic_bird1");
-                flipImageAnimation(imageView1, false, "ic_bird2", "ic_bird1");
+                //flipImageAnimation(imageView1, false, "ic_bird2", "ic_bird1");
             }
         });
 
