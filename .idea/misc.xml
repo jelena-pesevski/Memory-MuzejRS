@@ -19,10 +19,11 @@
         <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout-land/activity_main.xml" value="0.31869918699186994" />
         <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout/activity_levels.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/dragan.ivanovic/Desktop/MemoryGameMuzej/Memory-MuzejRS/app/src/main/res/layout/activity_game.xml" value="0.1793478260869565" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
