@@ -24,15 +24,15 @@
         android:id="@+id/imageViewBear"
         android:layout_width="@dimen/_175sdp"
         android:layout_height="@dimen/_175sdp"
-        android:layout_marginBottom="@dimen/_40sdp"
+        android:layout_marginBottom="16dp"
         android:clickable="true"
+        android:onClick="startThirdLevel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.417"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:srcCompat="@drawable/ic_bear"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:onClick="startThirdLevel"/>
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/imageViewBambi"
@@ -52,23 +52,23 @@
         android:id="@+id/imageViewBunny"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_80sdp"
-        android:layout_marginBottom="@dimen/_30sdp"
+        android:layout_marginBottom="36dp"
         android:clickable="true"
+        android:onClick="startFirstLevel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.373"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_bunny"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:onClick="startFirstLevel"/>
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/imageViewBird"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_45sdp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_birdflipped" />
@@ -77,13 +77,11 @@
         android:id="@+id/imageViewBoard"
         android:layout_width="@dimen/_170sdp"
         android:layout_height="@dimen/_170sdp"
-        android:layout_marginTop="@dimen/_45sdp"
+        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_board"
-        />
+        app:srcCompat="@drawable/ic_board" />
 
     <TextView
         android:id="@+id/description"
@@ -96,8 +94,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewBoard"
         app:layout_constraintEnd_toEndOf="@+id/imageViewBoard"
-        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/imageViewBoard"
         app:layout_constraintTop_toTopOf="@+id/imageViewBoard"
-        />
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
