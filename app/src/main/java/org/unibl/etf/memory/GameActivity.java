@@ -44,7 +44,10 @@ public class GameActivity extends AppCompatActivity {
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                makeAnimation(imageView1, 0, "ic_bird2", "ic_bird1");
+                //makeAnimation(imageView1, 0, "ic_bird2", "ic_bird2");
+
+                flipImageAnimation(imageView1, true, "ic_bird2", "ic_bird1");
+                flipImageAnimation(imageView1, false, "ic_bird2", "ic_bird1");
             }
         });
 
@@ -88,4 +91,44 @@ public class GameActivity extends AppCompatActivity {
 
         oa1.start();
     }
+
+
+
+
+    private static void flipImageAnimation(ImageView imageViewForChanging, boolean flipToFrontSize, String frontImagePath, String backImagePath){
+        final ObjectAnimator oa1 = ObjectAnimator.ofFloat(imageViewForChanging, "scaleX", 1f, 0f);
+        final ObjectAnimator oa2 = ObjectAnimator.ofFloat(imageViewForChanging, "scaleX", 0f, 1f);
+
+        oa1.setDuration(300);
+        oa2.setDuration(300);
+        oa1.setInterpolator(new DecelerateInterpolator());
+        oa2.setInterpolator(new AccelerateDecelerateInterpolator());
+
+        oa1.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                String pathImageToShow = "";
+
+                super.onAnimationEnd(animation);
+                if(flipToFrontSize == true){
+                    pathImageToShow = frontImagePath;
+                }
+                else{
+                    pathImageToShow = backImagePath;
+                }
+
+                Context context = imageViewForChanging.getContext();
+                int id = context.getResources().getIdentifier(pathImageToShow, "drawable", context.getPackageName());
+                imageViewForChanging.setImageResource(id);
+
+                oa2.start();
+
+            }
+        });
+
+        oa1.start();
+    }
+
+
+
 }
