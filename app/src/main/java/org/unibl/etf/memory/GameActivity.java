@@ -1,101 +1,117 @@
 package org.unibl.etf.memory;
 
+import androidx.annotation.Dimension;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import org.unibl.etf.memory.Adapters.GridViewAdapter;
+import org.unibl.etf.memory.Database.MemoryCard;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
-    private List<ImageView> imageViews = new ArrayList<ImageView>();
+    private int columnsNum;
+    private int rowsNum;
+
+    private List<MemoryCard> memoryCards = new ArrayList<MemoryCard>();
+
     //info za svaki imageView da li je vec clicked
-    private List<Boolean> clickedImageViews = new ArrayList<>();
+    private boolean[] clickedImageViews;
+    private int[] images;
+    private int[] backroundImages;
+    private GridView gridView;
 
+    ImageView firstImageViewSelected = null, secondImageViewSeelected = null;
+    MemoryCard firstMemoryCard = null, secondMemoryCard = null;
+    int firstMemoryCardClickedIndex = -1, secondMemoryCardClickedIndex = -1;
 
     private void loadImageViews(){
-        imageViews.clear();
-        clickedImageViews.clear();
 
-        imageViews.add(imageView1);
-        clickedImageViews.add(false);
+        //images = new {R.drawable.ic_bird1, R.drawable.ic_bird2};
+        memoryCards.add(new MemoryCard(0, "aaa", "ic_pepper", "opis 1"));
+        memoryCards.add(new MemoryCard(1, "bbb", "ic_pear", "opis 2"));
+        memoryCards.add(new MemoryCard(0, "aaa", "ic_pepper", "opis 1"));
+        memoryCards.add(new MemoryCard(1, "bbb", "ic_pear", "opis 2"));
+
+        images = new int[memoryCards.size()];
+
+        int br=0;
+        for(MemoryCard m : memoryCards){
+            int id = GameActivity.this.getResources().getIdentifier(m.getPath(), "drawable", GameActivity.this.getPackageName());
+            images[br++] = id;
+        }
+
+        clickedImageViews = new boolean[columnsNum*rowsNum];
+        backroundImages= new int[columnsNum*rowsNum];
+        for(int i = 0;i<columnsNum*rowsNum;i++){
+            backroundImages[i] = R.drawable.ic_banana;
+        }
+
     }
 
-    private ImageView imageView1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        imageView1 = (ImageView) findViewById(R.id.imageView1);
+        Intent intent = getIntent();
+        int orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            columnsNum = intent.getIntExtra("numColumnsPortrait", 2);
+            rowsNum = intent.getIntExtra("numRowsPortrait", 2);
+        } else {
+            columnsNum = intent.getIntExtra("numColumnsLandscape", 2);
+            rowsNum = intent.getIntExtra("numRowsLandscape", 2);
+        }
 
+        //get screen size
+        Display display = getWindowManager().getDefaultDisplay();
+        int width = display.getWidth();
+        int height = display.getHeight();
+        double padding = 9;
 
-        imageView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //makeAnimation(imageView1, 0, "ic_bird2", "ic_bird2");
+        int sizeOfCard = (int)(width/columnsNum - 2*columnsNum*padding);
 
-                flipImageAnimation(imageView1, true, "ic_bird2", "ic_bird1");
-                //flipImageAnimation(imageView1, false, "ic_bird2", "ic_bird1");
-            }
-        });
-
+        gridView = (GridView) findViewById(R.id.gridViewImages);
+        gridView.setNumColumns(columnsNum);
 
         loadImageViews();
+
+        GridViewAdapter gridViewAdapter = new GridViewAdapter(this, backroundImages, sizeOfCard, sizeOfCard);
+        gridView.setAdapter(gridViewAdapter);
+        gridView.setOnItemClickListener(this);
     }
 
-
-
-    private void makeAnimation(ImageView imageViewForChanging,int imageViewId, String frontImagePath, String backImagePath){
-        final ObjectAnimator oa1 = ObjectAnimator.ofFloat(imageViewForChanging, "scaleX", 1f, 0f);
-        final ObjectAnimator oa2 = ObjectAnimator.ofFloat(imageViewForChanging, "scaleX", 0f, 1f);
-
-        oa1.setDuration(300);
-        oa2.setDuration(300);
-        oa1.setInterpolator(new DecelerateInterpolator());
-        oa2.setInterpolator(new AccelerateDecelerateInterpolator());
-        oa1.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                String pathImageToShow = "";
-
-                super.onAnimationEnd(animation);
-                if(clickedImageViews.get(imageViewId) == false){
-                    pathImageToShow = frontImagePath;
-                }
-                else{
-                    pathImageToShow = backImagePath;
-                }
-
-                Context context = imageViewForChanging.getContext();
-                int id = context.getResources().getIdentifier(pathImageToShow, "drawable", context.getPackageName());
-                imageViewForChanging.setImageResource(id);
-
-                oa2.start();
-
-                Boolean newValue = !clickedImageViews.get(imageViewId);
-                clickedImageViews.set(imageViewId, newValue);
-            }
-        });
-
-        oa1.start();
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        gridView.setNumColumns(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2);
+        super.onConfigurationChanged(newConfig);
     }
 
-
-
-
-    private static void flipImageAnimation(ImageView imageViewForChanging, boolean flipToFrontSize, String frontImagePath, String backImagePath){
+    private static void flipImageAnimation(ImageView imageViewForChanging, String imageToShowPath){
+        Log.d("aa", "Test***************************************************  animac"+ Thread.currentThread().getId());
         final ObjectAnimator oa1 = ObjectAnimator.ofFloat(imageViewForChanging, "scaleX", 1f, 0f);
         final ObjectAnimator oa2 = ObjectAnimator.ofFloat(imageViewForChanging, "scaleX", 0f, 1f);
 
@@ -107,28 +123,88 @@ public class GameActivity extends AppCompatActivity {
         oa1.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                String pathImageToShow = "";
-
+                Log.d("aa", "Test*************************************************** unutar anim "+ Thread.currentThread().getId());
                 super.onAnimationEnd(animation);
-                if(flipToFrontSize == true){
-                    pathImageToShow = frontImagePath;
-                }
-                else{
-                    pathImageToShow = backImagePath;
-                }
 
                 Context context = imageViewForChanging.getContext();
-                int id = context.getResources().getIdentifier(pathImageToShow, "drawable", context.getPackageName());
+                int id = context.getResources().getIdentifier(imageToShowPath, "drawable", context.getPackageName());
                 imageViewForChanging.setImageResource(id);
 
-                oa2.start();
-
+                oa2.setDuration(500).start();
             }
         });
 
-        oa1.start();
+        oa1.setDuration(500).start();
     }
 
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+        Log.d("aa", "Test*************************************************** "+ Thread.currentThread().getId());
+        //prvi put kliknuta
+        if(!clickedImageViews[i]){
+            Log.d("aa", "ANIMACIJA"+clickedImageViews[i]);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    flipImageAnimation((ImageView) view,  String.valueOf(images[i]));
+                }
+            }, 100);
+
+            clickedImageViews[i]=true;
+            ((ImageView) view).setClickable(false);
+
+            if(firstImageViewSelected == null){
+                firstMemoryCardClickedIndex = i;
+                firstImageViewSelected = (ImageView) view;
+                firstMemoryCard = memoryCards.get(i);
+                firstImageViewSelected.setClickable(false);
+            }
+            else {
+                secondMemoryCardClickedIndex = i;
+                secondImageViewSeelected = (ImageView) view;
+                secondMemoryCard = memoryCards.get(i);
+
+                Log.d("aa", "kliknute" + firstMemoryCardClickedIndex+ " " +secondMemoryCardClickedIndex);
+
+                //provjeri poklapanje
+                if(firstMemoryCard.getMemoryCard_id() == secondMemoryCard.getMemoryCard_id()){
+                    firstImageViewSelected.setClickable(false);
+                    secondImageViewSeelected.setClickable(false);
+
+                    Toast.makeText(getApplicationContext(), "Cestitam", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    //rotiranje
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            flipImageAnimation(firstImageViewSelected, "ic_banana");
+                            flipImageAnimation(secondImageViewSeelected, "ic_banana");
+                        }
+                    }, 500);
+
+                    clickedImageViews[firstMemoryCardClickedIndex]= false;
+                    clickedImageViews[secondMemoryCardClickedIndex]= false;
+
+                    firstImageViewSelected.setClickable(true);
+                    secondImageViewSeelected.setClickable(true);
+                }
+
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        firstImageViewSelected = null;
+                        secondImageViewSeelected = null;
+                        firstMemoryCard = null;
+                        secondMemoryCard = null;
+
+                    }
+                }, 100);
+
+            }
+        }
+    }
 }
