@@ -26,13 +26,15 @@
         android:layout_height="@dimen/_175sdp"
         android:layout_marginBottom="@dimen/_40sdp"
         android:clickable="true"
+        android:onClick="startThirdLevel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.417"
+        app:layout_constraintHorizontal_bias="0.411"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewBoard"
+        app:layout_constraintVertical_bias="0.82"
         app:srcCompat="@drawable/ic_bear"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:onClick="startThirdLevel"/>
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/imageViewBambi"
@@ -66,7 +68,7 @@
         android:id="@+id/imageViewBird"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_45sdp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="@dimen/_25sdp"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
