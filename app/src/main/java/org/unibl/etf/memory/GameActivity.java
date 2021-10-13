@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -28,20 +29,18 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+public class GameActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
-
-public class GameActivity extends AppCompatActivity {
-
-    private int numColumnsVerical, numRowsVertical, numColumnsLandscape, numRowsLandscape;
+    private int columnsNum;
+    private int rowsNum;
 
     private List<MemoryCard> memoryCards = new ArrayList<MemoryCard>();
 
     //info za svaki imageView da li je vec clicked
-    private List<Boolean> clickedImageViews;// = new ArrayList<>();
-
-    GridView gridView;
-    int[] images;// = {R.drawable.ic_bird1, R.drawable.ic_bird2, R.drawable.ic_bird1, R.drawable.ic_bird2, R.drawable.ic_bird1};;
-
+    private boolean[] clickedImageViews;
+    private int[] images;
+    private int[] backroundImages;
+    private GridView gridView;
 
     ImageView firstImageViewSelected = null, secondImageViewSeelected = null;
     MemoryCard firstMemoryCard = null, secondMemoryCard = null;
@@ -63,8 +62,13 @@ public class GameActivity extends AppCompatActivity {
             images[br++] = id;
         }
 
-    }
+        clickedImageViews = new boolean[columnsNum*rowsNum];
+        backroundImages= new int[columnsNum*rowsNum];
+        for(int i = 0;i<columnsNum*rowsNum;i++){
+            backroundImages[i] = R.drawable.ic_banana;
+        }
 
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,118 +76,31 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         Intent intent = getIntent();
-        numColumnsVerical = intent.getIntExtra("numColumnsVerical", 2);
-        numRowsVertical = intent.getIntExtra("numRowsVertical", 2);
-        numColumnsLandscape = intent.getIntExtra("numColumnsLandscape", 2);
-        numRowsLandscape = intent.getIntExtra("numRowsLandscape", 2);
-
-        int numColumns = numColumnsVerical, numRows = numRowsVertical;
+        int orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            columnsNum = intent.getIntExtra("numColumnsPortrait", 2);
+            rowsNum = intent.getIntExtra("numRowsPortrait", 2);
+        } else {
+            columnsNum = intent.getIntExtra("numColumnsLandscape", 2);
+            rowsNum = intent.getIntExtra("numRowsLandscape", 2);
+        }
 
         //get screen size
-        Display display = getWindowManager().getDefaultDisplay();
-        int screenWidth = display.getWidth();
-        int screenHeight = display.getHeight();
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
         double padding = 9;
 
-        int sizeOfCard = (int)(screenWidth/numColumns - 2*numColumns*padding);
+        int sizeOfCard = (int)(width/columnsNum - 2*columnsNum*padding);
 
         gridView = (GridView) findViewById(R.id.gridViewImages);
-        gridView.setNumColumns(numColumns);
+        gridView.setNumColumns(columnsNum);
 
         loadImageViews();
 
-        clickedImageViews = new ArrayList<>();
-        int[] backroundImages = new int[numColumns*numRows];
-        for(int i = 0;i<numColumns*numRows;i++){
-            clickedImageViews.add(false);
-            backroundImages[i] = R.drawable.ic_banana;
-        }
-
-
         GridViewAdapter gridViewAdapter = new GridViewAdapter(this, backroundImages, sizeOfCard, sizeOfCard);
         gridView.setAdapter(gridViewAdapter);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                    //if niz[i] == true (vec kliknut)
-
-                Log.d("aa", "Test*************************************************** "+clickedImageViews.get(i));
-                //prvi put kliknuta
-                if(clickedImageViews.get(i) == false){
-                    Log.d("aa", "ANIMACIJA"+clickedImageViews.get(i));
-                    flipImageAnimation((ImageView) view,  String.valueOf(images[i]));
-
-
-
-                    clickedImageViews.set(i, true);
-                    ((ImageView) view).setClickable(false);
-
-                    if(firstImageViewSelected == null){
-                        firstMemoryCardClickedIndex = i;
-                        firstImageViewSelected = (ImageView) view;
-                        firstMemoryCard = memoryCards.get(i);
-
-                        firstImageViewSelected.setClickable(false);
-                    }
-                    else {
-                        secondMemoryCardClickedIndex = i;
-                        secondImageViewSeelected = (ImageView) view;
-                        secondMemoryCard = memoryCards.get(i);
-
-
-
-                        //provjeri poklapanje
-                        if(firstMemoryCard.getMemoryCard_id() == secondMemoryCard.getMemoryCard_id()){
-                            firstImageViewSelected.setClickable(false);
-                            secondImageViewSeelected.setClickable(false);
-
-                            Toast.makeText(getApplicationContext(), "Cestitam", Toast.LENGTH_SHORT).show();
-
-                        }
-                        else{
-
-                            Log.d("aa", "Prije");
-                            try {
-                                Thread.sleep(2000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            Log.d("aa", "Poslije");
-
-                            //rotiranje
-                            flipImageAnimation(firstImageViewSelected, "ic_banana");
-                            flipImageAnimation(secondImageViewSeelected, "ic_banana");
-
-                            clickedImageViews.set(firstMemoryCardClickedIndex, false);
-                            clickedImageViews.set(secondMemoryCardClickedIndex, false);
-
-                            firstImageViewSelected.setClickable(true);
-                            secondImageViewSeelected.setClickable(true);
-                        }
-
-                        //false
-                        firstImageViewSelected = null;
-                        secondImageViewSeelected = null;
-                        firstMemoryCard = null;
-                        secondMemoryCard = null;
-
-                    }
-                }
-                //drugi
-                else{
-
-
-                }
-                    //flipImageAnimation((ImageView) view,  "ic_bird2");
-                    //else prikazi drugu sliku
-
-            }
-        });
-
-
-
     }
 
 
@@ -194,12 +111,6 @@ public class GameActivity extends AppCompatActivity {
         gridView.setNumColumns(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2);
         super.onConfigurationChanged(newConfig);
     }
-
-
-
-
-
-
 
     private static void flipImageAnimation(ImageView imageViewForChanging, String imageToShowPath){
         final ObjectAnimator oa1 = ObjectAnimator.ofFloat(imageViewForChanging, "scaleX", 1f, 0f);
@@ -227,5 +138,66 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+        Log.d("aa", "Test*************************************************** ");
+        //prvi put kliknuta
+        if(!clickedImageViews[i]){
+            Log.d("aa", "ANIMACIJA"+clickedImageViews[i]);
+            flipImageAnimation((ImageView) view,  String.valueOf(images[i]));
+
+            clickedImageViews[i]=true;
+            ((ImageView) view).setClickable(false);
+
+            if(firstImageViewSelected == null){
+                firstMemoryCardClickedIndex = i;
+                firstImageViewSelected = (ImageView) view;
+                firstMemoryCard = memoryCards.get(i);
+
+                firstImageViewSelected.setClickable(false);
+            }
+            else {
+                secondMemoryCardClickedIndex = i;
+                secondImageViewSeelected = (ImageView) view;
+                secondMemoryCard = memoryCards.get(i);
+
+                //provjeri poklapanje
+                if(firstMemoryCard.getMemoryCard_id() == secondMemoryCard.getMemoryCard_id()){
+                    firstImageViewSelected.setClickable(false);
+                    secondImageViewSeelected.setClickable(false);
+
+                    Toast.makeText(getApplicationContext(), "Cestitam", Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+
+                    Log.d("aa", "Prije");
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Log.d("aa", "Poslije");
+
+                    //rotiranje
+                    flipImageAnimation(firstImageViewSelected, "ic_banana");
+                    flipImageAnimation(secondImageViewSeelected, "ic_banana");
+
+                    clickedImageViews[firstMemoryCardClickedIndex]= false;
+                    clickedImageViews[secondMemoryCardClickedIndex]= false;
+
+                    firstImageViewSelected.setClickable(true);
+                    secondImageViewSeelected.setClickable(true);
+                }
+
+                //false
+                firstImageViewSelected = null;
+                secondImageViewSeelected = null;
+                firstMemoryCard = null;
+                secondMemoryCard = null;
+
+            }
+        }
+    }
 }

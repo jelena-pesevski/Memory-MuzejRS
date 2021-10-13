@@ -31,8 +31,8 @@ public class LevelsActivity extends AppCompatActivity {
     public void startFirstLevel(View view){
         Intent intent=new Intent(LevelsActivity.this, GameActivity.class);
 
-        intent.putExtra("numColumnsVerical", 2);
-        intent.putExtra("numRowsVertical", 2);
+        intent.putExtra("numColumnsPortrait", 2);
+        intent.putExtra("numRowsPortrait", 2);
         intent.putExtra("numColumnsLandscape", 2);
         intent.putExtra("numRowsLandscape", 2);
 
@@ -63,7 +63,6 @@ class AnimationThread extends Thread
         this.imageView = imageViewArg;
     }
 
-
     public void run(){
         Animation animationZoomIn = AnimationUtils.loadAnimation(imageView.getContext(), R.anim.zoom_in);
         Animation animationZoomOut = AnimationUtils.loadAnimation(imageView.getContext(), R.anim.zoom_out);
@@ -84,8 +83,5 @@ class AnimationThread extends Thread
                 e.printStackTrace();
             }
         }
-
-
-
     }
 }
