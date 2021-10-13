@@ -30,6 +30,12 @@ public class LevelsActivity extends AppCompatActivity {
 
     public void startFirstLevel(View view){
         Intent intent=new Intent(LevelsActivity.this, GameActivity.class);
+
+        intent.putExtra("numColumnsVerical", 2);
+        intent.putExtra("numRowsVertical", 2);
+        intent.putExtra("numColumnsLandscape", 2);
+        intent.putExtra("numRowsLandscape", 2);
+
         startActivity(intent);
     }
 

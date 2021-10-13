@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         displayList();
         //testiranje i primjer unosa u bazu
         //MemoryCard memoryCard = new MemoryCard(1,"s","s","s");
