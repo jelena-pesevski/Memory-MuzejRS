@@ -30,7 +30,7 @@
         android:onClick="startThirdLevel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:srcCompat="@drawable/ic_bear"
+        app:srcCompat="@drawable/ic_bear_sticker"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
@@ -42,7 +42,7 @@
         android:onClick="startScndLevel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_bambi"
+        app:srcCompat="@drawable/ic_bambi_sticker"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
@@ -55,7 +55,7 @@
         android:onClick="startFirstLevel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:srcCompat="@drawable/ic_bunny"
+        app:srcCompat="@drawable/ic_bunny_sticker"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
