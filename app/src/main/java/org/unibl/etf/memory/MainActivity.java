@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         displayList();
-        //testiranje i primjer unosa u bazu
-        //MemoryCard memoryCard = new MemoryCard(1,"s","s","s");
-        //memoryCardDatabase.getMemoryCardDao().insertMemoryCard(memoryCard);
+
+
+
     }
 
     public void startGame(View view){
@@ -37,14 +37,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayList() {
-        memoryCardDatabase = MemoryCardDatabase.getInstance(MainActivity.this);
+        memoryCardDatabase = MemoryCardDatabase.getInstance(getApplicationContext());
         new MainActivity.RetrieveTask(this).execute();
     }
     private static class RetrieveTask extends AsyncTask<Void, Void, List<MemoryCard>> {
 
         private WeakReference<MainActivity> activityReference;
 
-        // only retain a weak reference to the activity
         RetrieveTask(MainActivity context) {
             activityReference = new WeakReference<>(context);
         }
@@ -59,9 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(List<MemoryCard> memoryCard) {
-            if (memoryCard != null && memoryCard.size() > 0) {
 
-            }
+
         }
     }
 }
