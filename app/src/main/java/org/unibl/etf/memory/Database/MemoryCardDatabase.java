@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import org.unibl.etf.memory.MainActivity;
+import org.unibl.etf.memory.Constants;
 
 @Database(entities = { MemoryCard.class }, version = 1)
 @TypeConverters({DateRoomConverter.class})
@@ -31,7 +31,7 @@ public abstract class MemoryCardDatabase extends RoomDatabase{
     private static MemoryCardDatabase buildDatabaseInstance(Context context) {
         return Room.databaseBuilder(context,
                 MemoryCardDatabase.class,
-                MainActivity.DB_NAME).allowMainThreadQueries().build();
+                Constants.DB_NAME).allowMainThreadQueries().build();
     }
 
     public  void cleanUp(){

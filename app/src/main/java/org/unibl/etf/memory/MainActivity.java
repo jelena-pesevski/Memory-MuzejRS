@@ -15,8 +15,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String DB_NAME="DataBase";
-    public static final String Table_Name="MemoryCard";
+
     private MemoryCardDatabase memoryCardDatabase;
 
     @Override

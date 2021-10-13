@@ -5,12 +5,12 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import org.unibl.etf.memory.MainActivity;
+import org.unibl.etf.memory.Constants;
 
 import java.io.Serializable;
 
 
-@Entity(tableName = MainActivity.Table_Name)
+@Entity(tableName = Constants.Table_Name)
 public class MemoryCard implements Serializable {
 
 

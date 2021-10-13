@@ -6,14 +6,14 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import org.unibl.etf.memory.MainActivity;
+import org.unibl.etf.memory.Constants;
 
 import java.util.List;
 
 @Dao
 public interface MemoryCardDao {
 
-    @Query("SELECT * FROM " + MainActivity.Table_Name)
+    @Query("SELECT * FROM " + Constants.Table_Name)
     List<MemoryCard> getMemoryCard();
 
     @Insert
