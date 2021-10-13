@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -49,10 +50,10 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
     private void loadImageViews(){
 
         //images = new {R.drawable.ic_bird1, R.drawable.ic_bird2};
-        memoryCards.add(new MemoryCard(0, "aaa", "ic_apple", "opis 1"));
-        memoryCards.add(new MemoryCard(1, "bbb", "ic_bird2", "opis 2"));
-        memoryCards.add(new MemoryCard(0, "aaa", "ic_apple", "opis 1"));
-        memoryCards.add(new MemoryCard(1, "bbb", "ic_bird2", "opis 2"));
+        memoryCards.add(new MemoryCard(0, "aaa", "ic_pepper", "opis 1"));
+        memoryCards.add(new MemoryCard(1, "bbb", "ic_pear", "opis 2"));
+        memoryCards.add(new MemoryCard(0, "aaa", "ic_pepper", "opis 1"));
+        memoryCards.add(new MemoryCard(1, "bbb", "ic_pear", "opis 2"));
 
         images = new int[memoryCards.size()];
 
@@ -86,10 +87,9 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
         }
 
         //get screen size
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
+        Display display = getWindowManager().getDefaultDisplay();
+        int width = display.getWidth();
+        int height = display.getHeight();
         double padding = 9;
 
         int sizeOfCard = (int)(width/columnsNum - 2*columnsNum*padding);
@@ -101,10 +101,8 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
 
         GridViewAdapter gridViewAdapter = new GridViewAdapter(this, backroundImages, sizeOfCard, sizeOfCard);
         gridView.setAdapter(gridViewAdapter);
+        gridView.setOnItemClickListener(this);
     }
-
-
-
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -113,6 +111,7 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private static void flipImageAnimation(ImageView imageViewForChanging, String imageToShowPath){
+        Log.d("aa", "Test***************************************************  animac"+ Thread.currentThread().getId());
         final ObjectAnimator oa1 = ObjectAnimator.ofFloat(imageViewForChanging, "scaleX", 1f, 0f);
         final ObjectAnimator oa2 = ObjectAnimator.ofFloat(imageViewForChanging, "scaleX", 0f, 1f);
 
@@ -124,28 +123,34 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
         oa1.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
+                Log.d("aa", "Test*************************************************** unutar anim "+ Thread.currentThread().getId());
                 super.onAnimationEnd(animation);
 
                 Context context = imageViewForChanging.getContext();
                 int id = context.getResources().getIdentifier(imageToShowPath, "drawable", context.getPackageName());
                 imageViewForChanging.setImageResource(id);
 
-                oa2.start();
+                oa2.setDuration(500).start();
             }
         });
 
-        oa1.start();
+        oa1.setDuration(500).start();
     }
 
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-        Log.d("aa", "Test*************************************************** ");
+        Log.d("aa", "Test*************************************************** "+ Thread.currentThread().getId());
         //prvi put kliknuta
         if(!clickedImageViews[i]){
             Log.d("aa", "ANIMACIJA"+clickedImageViews[i]);
-            flipImageAnimation((ImageView) view,  String.valueOf(images[i]));
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    flipImageAnimation((ImageView) view,  String.valueOf(images[i]));
+                }
+            }, 100);
 
             clickedImageViews[i]=true;
             ((ImageView) view).setClickable(false);
@@ -154,7 +159,6 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
                 firstMemoryCardClickedIndex = i;
                 firstImageViewSelected = (ImageView) view;
                 firstMemoryCard = memoryCards.get(i);
-
                 firstImageViewSelected.setClickable(false);
             }
             else {
@@ -162,27 +166,24 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
                 secondImageViewSeelected = (ImageView) view;
                 secondMemoryCard = memoryCards.get(i);
 
+                Log.d("aa", "kliknute" + firstMemoryCardClickedIndex+ " " +secondMemoryCardClickedIndex);
+
                 //provjeri poklapanje
                 if(firstMemoryCard.getMemoryCard_id() == secondMemoryCard.getMemoryCard_id()){
                     firstImageViewSelected.setClickable(false);
                     secondImageViewSeelected.setClickable(false);
 
                     Toast.makeText(getApplicationContext(), "Cestitam", Toast.LENGTH_SHORT).show();
-
                 }
                 else{
-
-                    Log.d("aa", "Prije");
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    Log.d("aa", "Poslije");
-
                     //rotiranje
-                    flipImageAnimation(firstImageViewSelected, "ic_banana");
-                    flipImageAnimation(secondImageViewSeelected, "ic_banana");
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            flipImageAnimation(firstImageViewSelected, "ic_banana");
+                            flipImageAnimation(secondImageViewSeelected, "ic_banana");
+                        }
+                    }, 500);
 
                     clickedImageViews[firstMemoryCardClickedIndex]= false;
                     clickedImageViews[secondMemoryCardClickedIndex]= false;
@@ -191,11 +192,17 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
                     secondImageViewSeelected.setClickable(true);
                 }
 
-                //false
-                firstImageViewSelected = null;
-                secondImageViewSeelected = null;
-                firstMemoryCard = null;
-                secondMemoryCard = null;
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        firstImageViewSelected = null;
+                        secondImageViewSeelected = null;
+                        firstMemoryCard = null;
+                        secondMemoryCard = null;
+
+                    }
+                }, 100);
 
             }
         }
