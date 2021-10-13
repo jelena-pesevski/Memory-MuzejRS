@@ -22,7 +22,15 @@ public abstract class MemoryCardDatabase extends RoomDatabase{
     {
         if(null == memoryCardDB)
         {
-            memoryCardDB =buildDatabaseInstance(context);
+            synchronized (MemoryCardDatabase.class)
+            {
+                if(null == memoryCardDB)
+                {
+
+                    memoryCardDB=Room.databaseBuilder(context.getApplicationContext(),MemoryCardDatabase.class,Constants.DB_NAME).createFromAsset("database/DataBase.db").allowMainThreadQueries().build();
+
+                }
+            }
 
         }
         return memoryCardDB;
@@ -37,5 +45,6 @@ public abstract class MemoryCardDatabase extends RoomDatabase{
     public  void cleanUp(){
         memoryCardDB = null;
     }
+
 
 }
