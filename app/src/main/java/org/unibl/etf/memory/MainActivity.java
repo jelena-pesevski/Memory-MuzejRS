@@ -15,7 +15,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
     public static final String DB_NAME="DataBase";
     public static final String Table_Name="MemoryCard";
     private MemoryCardDatabase memoryCardDatabase;
@@ -24,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         displayList();
         //testiranje i primjer unosa u bazu

@@ -4,33 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
+    android:background="@drawable/background_landscape">
+
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
+        android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3"/>
+        app:layout_constraintGuide_percent="0.8" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6"/>
+        app:layout_constraintGuide_percent="0.53" />
 
     <ImageView
         android:id="@+id/imageViewBear"
         android:layout_width="@dimen/_175sdp"
         android:layout_height="@dimen/_175sdp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/_30sdp"
         android:clickable="true"
         android:onClick="startThirdLevel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:srcCompat="@drawable/ic_bear"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -38,27 +37,24 @@
         android:id="@+id/imageViewBambi"
         android:layout_width="@dimen/_150sdp"
         android:layout_height="@dimen/_150sdp"
-        android:layout_marginBottom="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
         android:clickable="true"
+        android:onClick="startScndLevel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.783"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:srcCompat="@drawable/ic_bambi"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:onClick="startScndLevel"/>
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/imageViewBunny"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_80sdp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
         android:clickable="true"
         android:onClick="startFirstLevel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline1"
-        app:layout_constraintHorizontal_bias="0.373"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:srcCompat="@drawable/ic_bunny"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -66,9 +62,7 @@
         android:id="@+id/imageViewBird"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_45sdp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline1"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_marginBottom="@dimen/_16sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_birdflipped" />
@@ -77,8 +71,8 @@
         android:id="@+id/imageViewBoard"
         android:layout_width="@dimen/_170sdp"
         android:layout_height="@dimen/_170sdp"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_25sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_board" />
@@ -94,8 +88,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewBoard"
         app:layout_constraintEnd_toEndOf="@+id/imageViewBoard"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/imageViewBoard"
-        app:layout_constraintTop_toTopOf="@+id/imageViewBoard"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/imageViewBoard" />
 </androidx.constraintlayout.widget.ConstraintLayout>
