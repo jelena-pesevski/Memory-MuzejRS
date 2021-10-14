@@ -12,6 +12,7 @@ import android.content.res.Configuration;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -42,6 +43,7 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
     private int[] images;
     private int[] backroundImages;
     private GridView gridView;
+    private Handler handler;
 
     ImageView firstImageViewSelected = null, secondImageViewSeelected = null;
     MemoryCard firstMemoryCard = null, secondMemoryCard = null;
@@ -75,6 +77,8 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        handler=new Handler(getApplicationContext().getMainLooper());
 
         Intent intent = getIntent();
         int orientation = this.getResources().getConfiguration().orientation;
@@ -111,7 +115,6 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private static void flipImageAnimation(ImageView imageViewForChanging, String imageToShowPath){
-        Log.d("aa", "Test***************************************************  animac"+ Thread.currentThread().getId());
         final ObjectAnimator oa1 = ObjectAnimator.ofFloat(imageViewForChanging, "scaleX", 1f, 0f);
         final ObjectAnimator oa2 = ObjectAnimator.ofFloat(imageViewForChanging, "scaleX", 0f, 1f);
 
@@ -123,43 +126,43 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
         oa1.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                Log.d("aa", "Test*************************************************** unutar anim "+ Thread.currentThread().getId());
                 super.onAnimationEnd(animation);
 
                 Context context = imageViewForChanging.getContext();
                 int id = context.getResources().getIdentifier(imageToShowPath, "drawable", context.getPackageName());
                 imageViewForChanging.setImageResource(id);
 
-                oa2.setDuration(500).start();
+                oa2.start();
             }
         });
 
-        oa1.setDuration(500).start();
+        oa1.start();
     }
 
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
         Log.d("aa", "Test*************************************************** "+ Thread.currentThread().getId());
         //prvi put kliknuta
-        if(!clickedImageViews[i]){
+        if(view.isEnabled()){
             Log.d("aa", "ANIMACIJA"+clickedImageViews[i]);
-            new Handler().postDelayed(new Runnable() {
+            handler.post(new Runnable() {
                 @Override
                 public void run() {
                     flipImageAnimation((ImageView) view,  String.valueOf(images[i]));
                 }
-            }, 100);
+            });
 
-            clickedImageViews[i]=true;
-            ((ImageView) view).setClickable(false);
+          //  clickedImageViews[i]=true;
+          //  ((ImageView) view).setClickable(false);
+            ((ImageView) view).setEnabled(false);
 
             if(firstImageViewSelected == null){
                 firstMemoryCardClickedIndex = i;
                 firstImageViewSelected = (ImageView) view;
                 firstMemoryCard = memoryCards.get(i);
-                firstImageViewSelected.setClickable(false);
+                //firstImageViewSelected.setClickable(false);
+                //firstImageViewSelected.setOnClickListener(null);
             }
             else {
                 secondMemoryCardClickedIndex = i;
@@ -170,40 +173,38 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 //provjeri poklapanje
                 if(firstMemoryCard.getMemoryCard_id() == secondMemoryCard.getMemoryCard_id()){
-                    firstImageViewSelected.setClickable(false);
-                    secondImageViewSeelected.setClickable(false);
+                   /* firstImageViewSelected.setEnabled(false);
+                    secondImageViewSeelected.setClickable(false);*/
 
-                    Toast.makeText(getApplicationContext(), "Cestitam", Toast.LENGTH_SHORT).show();
+                 //   Toast.makeText(getApplicationContext(), "Cestitam", Toast.LENGTH_SHORT).show();
+
+                    firstImageViewSelected = null;
+                    secondImageViewSeelected = null;
+                    firstMemoryCard = null;
+                    secondMemoryCard = null;
                 }
                 else{
-                    //rotiranje
-                    new Handler().postDelayed(new Runnable() {
+                    //rotiranje sa delayom zbog iscrtavanja
+                    handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             flipImageAnimation(firstImageViewSelected, "ic_banana");
                             flipImageAnimation(secondImageViewSeelected, "ic_banana");
+
+                         //   clickedImageViews[firstMemoryCardClickedIndex]= false;
+                         //   clickedImageViews[secondMemoryCardClickedIndex]= false;
+                            firstImageViewSelected.setEnabled(true);
+                            secondImageViewSeelected.setEnabled(true);
+
+                            //ne moze se izvuci izvan else zbog toga sto mora da se izvrsi tacno nakon animacija iznad
+                            firstImageViewSelected = null;
+                            secondImageViewSeelected = null;
+                            firstMemoryCard = null;
+                            secondMemoryCard = null;
+
                         }
-                    }, 500);
-
-                    clickedImageViews[firstMemoryCardClickedIndex]= false;
-                    clickedImageViews[secondMemoryCardClickedIndex]= false;
-
-                    firstImageViewSelected.setClickable(true);
-                    secondImageViewSeelected.setClickable(true);
+                    }, 1000);
                 }
-
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        firstImageViewSelected = null;
-                        secondImageViewSeelected = null;
-                        firstMemoryCard = null;
-                        secondMemoryCard = null;
-
-                    }
-                }, 100);
-
             }
         }
     }
