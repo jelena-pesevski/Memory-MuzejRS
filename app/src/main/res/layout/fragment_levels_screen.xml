@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".LevelsScreenFragment"
     >
 
     <ImageView
@@ -57,8 +58,7 @@
         app:layout_constraintHorizontal_bias="0.783"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:srcCompat="@drawable/ic_bambi_sticker"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:onClick="startScndLevel"/>
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/imageViewBunny"
@@ -71,8 +71,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_bunny_sticker"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:onClick="startFirstLevel"/>
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/imageViewBird"

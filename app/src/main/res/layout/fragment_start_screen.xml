@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StartScreenFragment">
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/background_blur" />
+
+    <ImageView
+        android:id="@+id/bear_img"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_bear" />
+
+    <ImageView
+        android:id="@+id/bambi_img"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_200sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_bambi" />
+
+    <ImageView
+        android:id="@+id/bunny_img"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_bunny" />
+
+    <TextView
+        android:id="@+id/board_img"
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_190sdp"
+        android:layout_marginTop="@dimen/_70sdp"
+        android:background="@drawable/ic_board"
+        android:gravity="center"
+        android:paddingBottom="@dimen/_100sdp"
+        android:paddingTop="@dimen/_3sdp"
+        android:text="@string/title"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_31ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/bird_img"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_45sdp"
+        app:layout_constraintBottom_toTopOf="@+id/board_img"
+        app:layout_constraintStart_toStartOf="@+id/board_img"
+        app:srcCompat="@drawable/ic_birdflipped" />
+
+    <TextView
+        android:id="@+id/play_btn"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_75sdp"
+        android:layout_marginStart="@dimen/_70sdp"
+        android:layout_marginEnd="@dimen/_50sdp"
+        android:background="@drawable/ic_btn"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="@string/play"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_20ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/board_img"
+        app:layout_constraintEnd_toEndOf="@+id/board_img"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/board_img"
+        app:layout_constraintTop_toTopOf="@+id/board_img"
+        app:layout_constraintVertical_bias="0.882" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

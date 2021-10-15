@@ -15,7 +15,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private MemoryCardDatabase memoryCardDatabase;
 
     @Override
@@ -23,10 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        displayList();
-
-
-
+      //  displayList();
     }
 
     public void startGame(View view){

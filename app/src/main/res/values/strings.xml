@@ -5,4 +5,6 @@
     <string name="levels_page_txt">ОДАБЕРИ НИВО ПРИТИСКОМ НА ЖЕЉЕНУ ЖИВОТИЊУ</string>
     <string name="db_name">DataBase</string>
     <string name="Table_Name">MemoryCard</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

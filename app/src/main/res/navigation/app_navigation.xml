@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/startScreenFragment">
+
+    <fragment
+        android:id="@+id/startScreenFragment"
+        android:name="org.unibl.etf.memory.StartScreenFragment"
+        android:label="fragment_start_screen"
+        tools:layout="@layout/fragment_start_screen" >
+        <action
+            android:id="@+id/start_game"
+            app:destination="@id/levelsScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/levelsScreenFragment"
+        android:name="org.unibl.etf.memory.LevelsScreenFragment"
+        android:label="fragment_levels_screen"
+        tools:layout="@layout/fragment_levels_screen" >
+        <action
+            android:id="@+id/level_chosen"
+            app:destination="@id/gameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="org.unibl.etf.memory.GameFragment"
+        android:label="fragment_game"
+        tools:layout="@layout/fragment_game" />
+</navigation>

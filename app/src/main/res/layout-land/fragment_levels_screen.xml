@@ -4,45 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-
-    <ImageView
-        android:id="@+id/background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background" />
+    android:background="@drawable/background_landscape"
+    tools:context=".LevelsScreenFragment">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
+        android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3"/>
+        app:layout_constraintGuide_percent="0.8" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6"/>
+        app:layout_constraintGuide_percent="0.53" />
 
     <ImageView
         android:id="@+id/imageViewBear"
         android:layout_width="@dimen/_175sdp"
         android:layout_height="@dimen/_175sdp"
-        android:layout_marginBottom="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_30sdp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.411"
-        app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewBoard"
-        app:layout_constraintVertical_bias="0.82"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:srcCompat="@drawable/ic_bear_sticker"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -50,37 +36,30 @@
         android:id="@+id/imageViewBambi"
         android:layout_width="@dimen/_150sdp"
         android:layout_height="@dimen/_150sdp"
-        android:layout_marginBottom="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.783"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:srcCompat="@drawable/ic_bambi_sticker"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:onClick="startScndLevel"/>
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/imageViewBunny"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_80sdp"
-        android:layout_marginBottom="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline1"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:srcCompat="@drawable/ic_bunny_sticker"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:onClick="startFirstLevel"/>
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/imageViewBird"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_45sdp"
-        android:layout_marginTop="@dimen/_25sdp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline1"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginBottom="@dimen/_16sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_birdflipped" />
@@ -89,13 +68,11 @@
         android:id="@+id/imageViewBoard"
         android:layout_width="@dimen/_170sdp"
         android:layout_height="@dimen/_170sdp"
-        android:layout_marginTop="@dimen/_45sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_25sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_board"
-        />
+        app:srcCompat="@drawable/ic_board" />
 
     <TextView
         android:id="@+id/description"
@@ -108,8 +85,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewBoard"
         app:layout_constraintEnd_toEndOf="@+id/imageViewBoard"
-        app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintStart_toStartOf="@+id/imageViewBoard"
-        app:layout_constraintTop_toTopOf="@+id/imageViewBoard"
-        />
+        app:layout_constraintTop_toTopOf="@+id/imageViewBoard" />
 </androidx.constraintlayout.widget.ConstraintLayout>
