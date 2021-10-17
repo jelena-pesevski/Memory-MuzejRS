@@ -82,21 +82,26 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
 
         Intent intent = getIntent();
         int orientation = this.getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            columnsNum = intent.getIntExtra("numColumnsPortrait", 2);
-            rowsNum = intent.getIntExtra("numRowsPortrait", 2);
-        } else {
-            columnsNum = intent.getIntExtra("numColumnsLandscape", 2);
-            rowsNum = intent.getIntExtra("numRowsLandscape", 2);
-        }
+//        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+//            columnsNum = intent.getIntExtra("numColumnsPortrait", 2);
+//            rowsNum = intent.getIntExtra("numRowsPortrait", 2);
+//        } else {
+//            columnsNum = intent.getIntExtra("numColumnsLandscape", 2);
+//            rowsNum = intent.getIntExtra("numRowsLandscape", 2);
+//        }
 
+        Log.d("aa", "+++++++++++++++++++++++++++++++PONOVO UCITAVANJE, PROMIJENEJNA ORJENTACIJA");
         //get screen size
         Display display = getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
         int height = display.getHeight();
         double padding = 9;
 
-        int sizeOfCard = (int)(width/columnsNum - 2*columnsNum*padding);
+        int sizeOfCard = 0;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT)
+            sizeOfCard = (int)(width/columnsNum - 2*columnsNum*padding);
+        else
+            sizeOfCard = (int)(height/columnsNum - 2*columnsNum*padding);
 
         gridView = (GridView) findViewById(R.id.gridViewImages);
         gridView.setNumColumns(columnsNum);
@@ -108,9 +113,36 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
         gridView.setOnItemClickListener(this);
     }
 
+
+    private void setMemoryCardSize(int orientation){
+        Display display = getWindowManager().getDefaultDisplay();
+        int width = display.getWidth();
+        int height = display.getHeight();
+        double padding = 9;
+
+        int sizeOfCard = 0;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT)
+            sizeOfCard = (int)(width/columnsNum - 2*columnsNum*padding);
+        else
+            sizeOfCard = (int)(height/columnsNum - 2*columnsNum*padding);
+
+        gridView = (GridView) findViewById(R.id.gridViewImages);
+        gridView.setNumColumns(columnsNum);
+
+
+        GridViewAdapter gridViewAdapter = new GridViewAdapter(this, backroundImages, sizeOfCard, sizeOfCard);
+        gridView.setAdapter(gridViewAdapter);
+        gridView.setOnItemClickListener(this);
+    }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        gridView.setNumColumns(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2);
+        Log.d("aa","-------------------------------------Promijena orjentacija");
+
+        Toast.makeText(this, "Promjena orjentacije", Toast.LENGTH_SHORT).show();
+
+        gridView.setNumColumns(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ? 2 : 2);
+        setMemoryCardSize(newConfig.orientation);
         super.onConfigurationChanged(newConfig);
     }
 
