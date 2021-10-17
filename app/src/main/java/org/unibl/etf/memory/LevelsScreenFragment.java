@@ -1,5 +1,7 @@
 package org.unibl.etf.memory;
 
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -37,13 +39,16 @@ public class LevelsScreenFragment extends Fragment {
             }
         });
 
-        new AnimationThread(imageViewBunny).start();
-        new AnimationThread(imageViewBear).start();
-        new AnimationThread(imageViewBambi).start();
+//        new AnimationThread(imageViewBunny).start();
+//        new AnimationThread(imageViewBear).start();
+//        new AnimationThread(imageViewBambi).start();
 
         return root;
     }
+
 }
+
+
 
 class AnimationThread extends Thread {
     private ImageView imageView;
