@@ -2,6 +2,7 @@ package org.unibl.etf.memory;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,13 +17,16 @@ public class LevelsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_levels);
 
-        ImageView imageViewBunny = (ImageView) findViewById(R.id.imageViewBunny);
-        ImageView imageViewBear = (ImageView) findViewById(R.id.imageViewBear);
-        ImageView imageViewBambi = (ImageView) findViewById(R.id.imageViewBambi);
 
-        new AnimationThread(imageViewBunny).start();
-        new AnimationThread(imageViewBear).start();
-        new AnimationThread(imageViewBambi).start();
+//        ImageView imageViewBunny = (ImageView) findViewById(R.id.imageViewBunny);
+//        ImageView imageViewBear = (ImageView) findViewById(R.id.imageViewBear);
+//        ImageView imageViewBambi = (ImageView) findViewById(R.id.imageViewBambi);
+
+        Log.d("TAG", "LEVELS STARI**************");
+
+      //  new AnimationThread(imageViewBunny).start();
+      //  new AnimationThread(imageViewBear).start();
+       // new AnimationThread(imageViewBambi).start();
 
         //Animation aniSlide = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoom_in);
         //imageViewBear.startAnimation(aniSlide);
@@ -51,7 +55,7 @@ public class LevelsActivity extends AppCompatActivity {
 }
 
 
-class AnimationThread extends Thread
+/*class AnimationThread extends Thread
 {
     private ImageView imageView;
 
@@ -84,4 +88,4 @@ class AnimationThread extends Thread
             }
         }
     }
-}
+}*/

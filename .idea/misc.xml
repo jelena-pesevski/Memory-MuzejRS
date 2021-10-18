@@ -37,8 +37,15 @@
         <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/drawable/ic_tomato.xml" value="0.5" />
         <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout-land/activity_levels.xml" value="0.31869918699186994" />
         <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout-land/activity_main.xml" value="0.31869918699186994" />
+        <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout-land/fragment_game.xml" value="0.31869918699186994" />
+        <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout-land/fragment_levels_screen.xml" value="0.31869918699186994" />
+        <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout-land/fragment_start_screen.xml" value="0.31869918699186994" />
+        <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout/activity_game.xml" value="0.1" />
         <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout/activity_levels.xml" value="0.25" />
         <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout/fragment_game.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout/fragment_levels_screen.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout/fragment_start_screen.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>
