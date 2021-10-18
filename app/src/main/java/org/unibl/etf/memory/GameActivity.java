@@ -1,6 +1,5 @@
 package org.unibl.etf.memory;
 
-import androidx.annotation.Dimension;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
@@ -9,11 +8,8 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -22,12 +18,10 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import org.unibl.etf.memory.Adapters.GridViewAdapter;
+import org.unibl.etf.memory.adapters.GridViewAdapter;
 import org.unibl.etf.memory.Database.MemoryCard;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 

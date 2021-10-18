@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -22,7 +21,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import org.unibl.etf.memory.Adapters.GridViewAdapter;
+import org.unibl.etf.memory.adapters.GridViewAdapter;
 import org.unibl.etf.memory.Database.MemoryCard;
 
 import java.util.ArrayList;

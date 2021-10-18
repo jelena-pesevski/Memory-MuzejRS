@@ -1,10 +1,8 @@
-package org.unibl.etf.memory.Adapters;
+package org.unibl.etf.memory.adapters;
 
-import static android.widget.ImageView.ScaleType.CENTER_CROP;
 import static android.widget.ImageView.ScaleType.FIT_CENTER;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
