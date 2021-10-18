@@ -17,9 +17,10 @@ public class LevelsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_levels);
 
-        ImageView imageViewBunny = (ImageView) findViewById(R.id.imageViewBunny);
-        ImageView imageViewBear = (ImageView) findViewById(R.id.imageViewBear);
-        ImageView imageViewBambi = (ImageView) findViewById(R.id.imageViewBambi);
+
+//        ImageView imageViewBunny = (ImageView) findViewById(R.id.imageViewBunny);
+//        ImageView imageViewBear = (ImageView) findViewById(R.id.imageViewBear);
+//        ImageView imageViewBambi = (ImageView) findViewById(R.id.imageViewBambi);
 
         Log.d("TAG", "LEVELS STARI**************");
 
