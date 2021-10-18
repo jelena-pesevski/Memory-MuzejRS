@@ -215,9 +215,8 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
         {
             int randomIndex = random.nextInt(numberOfMemoryCards/2);
             MemoryCard memoryCard=memoryCards.get(randomIndex);
-            MemoryCard memoryCard1=new MemoryCard(memoryCard.getMemoryCard_id()*2,memoryCard.getName(),memoryCard.getPath(),memoryCard.getDescription());
             newList.add(memoryCard);
-            newList.add(memoryCard1);
+            newList.add(memoryCard);
 
 
 
