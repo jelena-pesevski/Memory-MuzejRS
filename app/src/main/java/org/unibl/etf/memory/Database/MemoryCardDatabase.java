@@ -27,7 +27,7 @@ public abstract class MemoryCardDatabase extends RoomDatabase{
                 if(null == memoryCardDB)
                 {
 
-                    memoryCardDB=Room.databaseBuilder(context.getApplicationContext(),MemoryCardDatabase.class,Constants.DB_NAME).createFromAsset("database/DataBase.db").allowMainThreadQueries().build();
+                    memoryCardDB=Room.databaseBuilder(context.getApplicationContext(),MemoryCardDatabase.class,Constants.DB_NAME).createFromAsset("database/DataBase.db").build();
 
                 }
             }

@@ -1,19 +1,13 @@
 package org.unibl.etf.memory;
 
-import androidx.annotation.Dimension;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -22,14 +16,15 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.unibl.etf.memory.Adapters.GridViewAdapter;
 import org.unibl.etf.memory.Database.MemoryCard;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
@@ -208,4 +203,34 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         }
     }
+    public static List<MemoryCard> getRandomMemoryCardsFromDatabase(int numberOfMemoryCards)
+    {
+        //check if number is odd
+        if(numberOfMemoryCards/2 != 0)
+            return null;
+        Random random=new Random();
+        List<MemoryCard> memoryCards=MainActivity.getMemoryCardDatabase().getMemoryCardDao().getMemoryCard();
+        List<MemoryCard> newList=null;
+        for(int i=0;i<numberOfMemoryCards/2;i++)
+        {
+            int randomIndex = random.nextInt(numberOfMemoryCards/2);
+            MemoryCard memoryCard=memoryCards.get(randomIndex);
+            MemoryCard memoryCard1=new MemoryCard(memoryCard.getMemoryCard_id()*2,memoryCard.getName(),memoryCard.getPath(),memoryCard.getDescription());
+            newList.add(memoryCard);
+            newList.add(memoryCard1);
+
+
+
+        }
+        return newList;
+
+
+
+
+
+
+
+
+    }
+
 }
