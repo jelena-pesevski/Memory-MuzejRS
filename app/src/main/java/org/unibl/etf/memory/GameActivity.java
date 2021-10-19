@@ -23,6 +23,7 @@ import org.unibl.etf.memory.Adapters.GridViewAdapter;
 import org.unibl.etf.memory.Database.MemoryCard;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -217,6 +218,7 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
             MemoryCard memoryCard=memoryCards.get(randomIndex);
             newList.add(memoryCard);
             newList.add(memoryCard);
+            Collections.shuffle(newList);
 
 
 
