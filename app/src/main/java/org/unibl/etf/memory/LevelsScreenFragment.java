@@ -39,6 +39,19 @@ public class LevelsScreenFragment extends Fragment {
             }
         });
 
+        imageViewBear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("numColumnsPortrait", 2);
+                bundle.putInt("numRowsPortrait", 3);
+                bundle.putInt("numRowsLandscape", 2);
+                bundle.putInt("numColumnsLandscape", 3);
+
+                Navigation.findNavController(root).navigate(R.id.level_chosen, bundle);
+            }
+        });
+
         //start amimations
         Animation animationZoomInOut = AnimationUtils.loadAnimation(imageViewBunny.getContext(), R.anim.zoom_in_zoom_out);
         imageViewBunny.startAnimation(animationZoomInOut);
