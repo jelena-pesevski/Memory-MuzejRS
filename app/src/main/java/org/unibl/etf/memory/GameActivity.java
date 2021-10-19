@@ -207,7 +207,7 @@ public class GameActivity extends AppCompatActivity implements AdapterView.OnIte
     public static List<MemoryCard> getRandomMemoryCardsFromDatabase(int numberOfMemoryCards)
     {
         //check if number is odd
-        if(numberOfMemoryCards/2 != 0)
+        if(numberOfMemoryCards % 2 != 0)
             return null;
         Random random=new Random();
         List<MemoryCard> memoryCards=MainActivity.getMemoryCardDatabase().getMemoryCardDao().getMemoryCard();
