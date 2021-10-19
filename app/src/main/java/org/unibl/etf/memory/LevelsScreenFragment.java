@@ -1,12 +1,12 @@
 package org.unibl.etf.memory;
 
 import android.app.Activity;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,47 +39,13 @@ public class LevelsScreenFragment extends Fragment {
             }
         });
 
-//        new AnimationThread(imageViewBunny).start();
-//        new AnimationThread(imageViewBear).start();
-//        new AnimationThread(imageViewBambi).start();
+        //start amimations
+        Animation animationZoomInOut = AnimationUtils.loadAnimation(imageViewBunny.getContext(), R.anim.zoom_in_zoom_out);
+        imageViewBunny.startAnimation(animationZoomInOut);
+        imageViewBear.startAnimation(animationZoomInOut);
+        imageViewBambi.startAnimation(animationZoomInOut);
 
         return root;
     }
-
 }
 
-
-
-class AnimationThread extends Thread {
-    private ImageView imageView;
-
-    public AnimationThread() {
-
-    }
-
-    public AnimationThread(ImageView imageViewArg) {
-        this.imageView = imageViewArg;
-    }
-
-    public void run() {
-        Animation animationZoomIn = AnimationUtils.loadAnimation(imageView.getContext(), R.anim.zoom_in);
-        Animation animationZoomOut = AnimationUtils.loadAnimation(imageView.getContext(), R.anim.zoom_out);
-
-        while (true) {
-            imageView.startAnimation(animationZoomIn);
-
-            try {
-                sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            imageView.startAnimation(animationZoomOut);
-
-            try {
-                sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-}
