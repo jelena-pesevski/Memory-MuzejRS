@@ -107,42 +107,45 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Log.d("aa", "Test*************************************************** "+ Thread.currentThread().getId());
-        //prvi put kliknuta
         if(view.isEnabled()){
-            Log.d("aa", "ANIMACIJA"+clickedImageViews[i]);
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    flipImageAnimation((ImageView) view,  String.valueOf(images[i]));
-                }
-            });
+            //ako su vec dvije izabrane
+           /* if(firstImageViewSelected!=null && secondImageViewSeelected!=null){
+                Log.d("aa", "KLIKNUT INDEX "+ i+ " ALI SE NE OKRECE");
+                return;
+            }*/
 
             //  clickedImageViews[i]=true;
             //  ((ImageView) view).setClickable(false);
-            ((ImageView) view).setEnabled(false);
-
             if(firstImageViewSelected == null){
                 firstMemoryCardClickedIndex = i;
                 firstImageViewSelected = (ImageView) view;
                 firstMemoryCard = memoryCards.get(i);
-                //firstImageViewSelected.setClickable(false);
-                //firstImageViewSelected.setOnClickListener(null);
+
+                firstImageViewSelected.setEnabled(false);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        flipImageAnimation((ImageView) view,  String.valueOf(images[i]));
+                    }
+                });
             }
-            else {
+            else if (firstImageViewSelected!= null && secondImageViewSeelected==null){
                 secondMemoryCardClickedIndex = i;
                 secondImageViewSeelected = (ImageView) view;
                 secondMemoryCard = memoryCards.get(i);
 
-                Log.d("aa", "kliknute" + firstMemoryCardClickedIndex+ " " +secondMemoryCardClickedIndex);
+                ((ImageView) view).setEnabled(false);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        flipImageAnimation((ImageView) view,  String.valueOf(images[i]));
+                    }
+                });
+
+                Log.d("tag", "odabrane " + firstMemoryCardClickedIndex+ " " +secondMemoryCardClickedIndex);
 
                 //provjeri poklapanje
                 if(firstMemoryCard.getMemoryCard_id() == secondMemoryCard.getMemoryCard_id()){
-                   /* firstImageViewSelected.setEnabled(false);
-                    secondImageViewSeelected.setClickable(false);*/
-
-                    //   Toast.makeText(getApplicationContext(), "Cestitam", Toast.LENGTH_SHORT).show();
-
                     firstImageViewSelected = null;
                     secondImageViewSeelected = null;
                     firstMemoryCard = null;
