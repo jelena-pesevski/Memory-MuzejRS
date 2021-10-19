@@ -21,6 +21,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.unibl.etf.memory.Adapters.GridViewAdapter;
 import org.unibl.etf.memory.Database.MemoryCard;
@@ -46,11 +47,16 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
     MemoryCard firstMemoryCard = null, secondMemoryCard = null;
     int firstMemoryCardClickedIndex = -1, secondMemoryCardClickedIndex = -1;
 
+
+    private View root;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root= inflater.inflate(R.layout.fragment_game, container, false);
+        root= inflater.inflate(R.layout.fragment_game, container, false);
         handler=new Handler(getActivity().getApplicationContext().getMainLooper());
+
+
+        gridView = (GridView) root.findViewById(R.id.gridViewImages);
 
         int orientation = this.getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -61,24 +67,75 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
             rowsNum = getArguments().getInt("numRowsLandscape", 2);
         }
 
+        loadImageViews();
+        setGridviewSize();
+
+//
+//        //get screen size
+//        Display display = getActivity().getWindowManager().getDefaultDisplay();
+//        int width = display.getWidth();
+//        int height = display.getHeight();
+//        double padding = 9;
+//
+//        //ovdje promijeniti, staviti if
+//        int sizeOfCard = (int)(width/columnsNum - 2*columnsNum*padding);
+//
+//        Log.d("aa", "-----------------------------------Velicina karte-> " + sizeOfCard);
+//        gridView = (GridView) root.findViewById(R.id.gridViewImages);
+//        gridView.setNumColumns(columnsNum);
+//
+//        //loadImageViews();
+//
+//        GridViewAdapter gridViewAdapter = new GridViewAdapter(getContext(), backroundImages, sizeOfCard, sizeOfCard);
+//        gridView.setAdapter(gridViewAdapter);
+//        gridView.setOnItemClickListener(this);
+
+
+        //loadImageViews();
+        //setGridviewSize();
+
+
+        return root;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        setGridviewSize();
+    }
+
+    private void setGridviewSize(){
         //get screen size
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
         int height = display.getHeight();
         double padding = 9;
 
-        int sizeOfCard = (int)(width/columnsNum - 2*columnsNum*padding);
+        int orientation = this.getResources().getConfiguration().orientation;
 
-        gridView = (GridView) root.findViewById(R.id.gridViewImages);
+        int cardWidth = 0, cardHeight;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            columnsNum = getArguments().getInt("numColumnsPortrait",2);
+            rowsNum = getArguments().getInt("numRowsPortrait", 2);
+
+            cardWidth = (int)(width/columnsNum - 2*columnsNum*padding);
+            cardHeight = cardWidth;
+
+        } else {
+            columnsNum = getArguments().getInt("numColumnsLandscape", 2);
+            rowsNum = getArguments().getInt("numRowsLandscape", 2);
+
+            cardWidth = (int)(width/columnsNum - 2*columnsNum*padding);
+            cardHeight = (int)((0.8 * height)/rowsNum - 2*rowsNum*padding);
+        }
+
         gridView.setNumColumns(columnsNum);
 
-        loadImageViews();
-
-        GridViewAdapter gridViewAdapter = new GridViewAdapter(getContext(), backroundImages, sizeOfCard, sizeOfCard);
+        //GridViewAdapter gridViewAdapter = new GridViewAdapter(getContext(), backroundImages, sizeOfCard, sizeOfCard);
+        GridViewAdapter gridViewAdapter = new GridViewAdapter(gridView.getContext(), backroundImages, cardWidth, cardHeight);
         gridView.setAdapter(gridViewAdapter);
         gridView.setOnItemClickListener(this);
-
-        return root;
     }
 
     private void loadImageViews(){
@@ -102,8 +159,8 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
         for(int i = 0;i<columnsNum*rowsNum;i++){
             backroundImages[i] = R.drawable.ic_empty_card;
         }
-
     }
+
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -177,11 +234,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
         }
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        gridView.setNumColumns(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2);
-        super.onConfigurationChanged(newConfig);
-    }
+
 
     private static void flipImageAnimation(ImageView imageViewForChanging, String imageToShowPath){
         final ObjectAnimator oa1 = ObjectAnimator.ofFloat(imageViewForChanging, "scaleX", 1f, 0f);
