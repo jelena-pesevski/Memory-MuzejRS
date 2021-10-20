@@ -105,7 +105,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
             rowsNum = getArguments().getInt("numRowsLandscape", 2);
 
             cardWidth = (int)(width/columnsNum - 2*columnsNum*padding);
-            cardHeight = (int)((0.8 * height)/rowsNum - 2*rowsNum*padding);
+            cardHeight = (int)(( height)/rowsNum - 2*rowsNum*padding);
         }
 
         gridView.setNumColumns(columnsNum);
