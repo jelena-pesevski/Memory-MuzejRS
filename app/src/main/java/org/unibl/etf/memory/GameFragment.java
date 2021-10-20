@@ -5,6 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -32,6 +34,8 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
 
     private int columnsNum;
     private int rowsNum;
+    private SoundPool soundPool;
+    private int sound;
 
     private List<MemoryCard> memoryCards = new ArrayList<MemoryCard>();
 
@@ -51,10 +55,11 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         root= inflater.inflate(R.layout.fragment_game, container, false);
         handler=new Handler(getActivity().getApplicationContext().getMainLooper());
 
-
+        setSound();
         gridView = (GridView) root.findViewById(R.id.gridViewImages);
 
         int orientation = this.getResources().getConfiguration().orientation;
@@ -182,6 +187,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
                     firstMemoryCard = null;
                     secondMemoryCard = null;
                     Toast.makeText(getContext(), "Bravo!", Toast.LENGTH_SHORT).show();
+                    playSound();
                     counter--;
                 }
                 else{
@@ -209,6 +215,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
             }
             if(counter==0){
                 Toast.makeText(getContext(), "Pronasli ste sve parove!", Toast.LENGTH_SHORT).show();
+                playSound();
             }
         }
     }
@@ -256,5 +263,20 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
 
         Collections.shuffle(newList);
         return newList;
+    }
+
+    private void setSound()
+    {
+        AudioAttributes audioAttributes = new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).setUsage(AudioAttributes.USAGE_GAME).build();
+        soundPool = new SoundPool.Builder().setMaxStreams(1).setAudioAttributes(audioAttributes).build();
+        sound= soundPool.load(getContext(),R.raw.match,1);
+
+
+
+    }
+    private void playSound()
+    {
+        soundPool.play(sound,1,1,1,0,1);
+
     }
 }
