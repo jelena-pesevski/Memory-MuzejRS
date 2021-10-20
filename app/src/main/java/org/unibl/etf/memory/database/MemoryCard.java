@@ -1,4 +1,4 @@
-package org.unibl.etf.memory.Database;
+package org.unibl.etf.memory.database;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

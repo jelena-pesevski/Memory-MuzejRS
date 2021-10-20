@@ -4,12 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
 import android.util.Log;
 import android.view.Display;
@@ -21,24 +19,30 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-import org.unibl.etf.memory.Adapters.GridViewAdapter;
-import org.unibl.etf.memory.Database.MemoryCard;
+import androidx.fragment.app.Fragment;
+
+import org.unibl.etf.memory.adapters.GridViewAdapter;
+import org.unibl.etf.memory.database.MemoryCard;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GameFragment extends Fragment implements AdapterView.OnItemClickListener{
 
     private int columnsNum;
     private int rowsNum;
+    private SoundPool soundPool;
+    private int sound;
 
     private List<MemoryCard> memoryCards = new ArrayList<MemoryCard>();
 
     //info za svaki imageView da li je vec clicked
     private boolean[] clickedImageViews;
     private int[] images;
-    private int[] backroundImages;
+    private int counter=0;
     private GridView gridView;
     private Handler handler;
 
@@ -46,11 +50,17 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
     MemoryCard firstMemoryCard = null, secondMemoryCard = null;
     int firstMemoryCardClickedIndex = -1, secondMemoryCardClickedIndex = -1;
 
+
+    private View root;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root= inflater.inflate(R.layout.fragment_game, container, false);
+
+        root= inflater.inflate(R.layout.fragment_game, container, false);
         handler=new Handler(getActivity().getApplicationContext().getMainLooper());
+
+        setSound();
+        gridView = (GridView) root.findViewById(R.id.gridViewImages);
 
         int orientation = this.getResources().getConfiguration().orientation;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -61,92 +71,124 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
             rowsNum = getArguments().getInt("numRowsLandscape", 2);
         }
 
+        loadImageViews();
+        setGridviewSize();
+        counter=images.length/2;
+        return root;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        setGridviewSize();
+        firstImageViewSelected = null;
+        secondImageViewSeelected = null;
+        firstMemoryCard = null;
+        secondMemoryCard = null;
+    }
+
+    private void setGridviewSize(){
         //get screen size
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
         int height = display.getHeight();
         double padding = 9;
 
-        int sizeOfCard = (int)(width/columnsNum - 2*columnsNum*padding);
+        int orientation = this.getResources().getConfiguration().orientation;
 
-        gridView = (GridView) root.findViewById(R.id.gridViewImages);
+        int cardWidth = 0, cardHeight;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            columnsNum = getArguments().getInt("numColumnsPortrait",2);
+            rowsNum = getArguments().getInt("numRowsPortrait", 2);
+
+            cardWidth = (int)(width/columnsNum - 2*columnsNum*padding);
+            cardHeight = cardWidth;
+
+        } else {
+            columnsNum = getArguments().getInt("numColumnsLandscape", 2);
+            rowsNum = getArguments().getInt("numRowsLandscape", 2);
+
+            cardWidth = (int)(width/columnsNum - 2*columnsNum*padding);
+            cardHeight = (int)(( height)/rowsNum - 2*rowsNum*padding);
+        }
+
         gridView.setNumColumns(columnsNum);
 
-        loadImageViews();
-
-        GridViewAdapter gridViewAdapter = new GridViewAdapter(getContext(), backroundImages, sizeOfCard, sizeOfCard);
+        //GridViewAdapter gridViewAdapter = new GridViewAdapter(getContext(), backroundImages, sizeOfCard, sizeOfCard);
+        GridViewAdapter gridViewAdapter = new GridViewAdapter(gridView.getContext(), images, clickedImageViews, cardWidth, cardHeight);
         gridView.setAdapter(gridViewAdapter);
         gridView.setOnItemClickListener(this);
-
-        return root;
     }
 
     private void loadImageViews(){
 
-        //images = new {R.drawable.ic_bird1, R.drawable.ic_bird2};
-        memoryCards.add(new MemoryCard(0, "aaa", "ic_pepper", "opis 1"));
-        memoryCards.add(new MemoryCard(1, "bbb", "ic_pear", "opis 2"));
-        memoryCards.add(new MemoryCard(0, "aaa", "ic_pepper", "opis 1"));
-        memoryCards.add(new MemoryCard(1, "bbb", "ic_pear", "opis 2"));
+        memoryCards=getRandomMemoryCardsFromDatabase(columnsNum*rowsNum);
 
         images = new int[memoryCards.size()];
 
         int br=0;
         for(MemoryCard m : memoryCards){
-            int id = GameFragment.this.getResources().getIdentifier(m.getPath(), "drawable", getActivity().getPackageName());
+            int id = GameFragment.this.getResources().getIdentifier(m.getName(), "drawable", getActivity().getPackageName());
             images[br++] = id;
         }
 
         clickedImageViews = new boolean[columnsNum*rowsNum];
-        backroundImages= new int[columnsNum*rowsNum];
-        for(int i = 0;i<columnsNum*rowsNum;i++){
-            backroundImages[i] = R.drawable.ic_empty_card;
-        }
-
     }
+
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Log.d("aa", "Test*************************************************** "+ Thread.currentThread().getId());
-        //prvi put kliknuta
         if(view.isEnabled()){
-            Log.d("aa", "ANIMACIJA"+clickedImageViews[i]);
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    flipImageAnimation((ImageView) view,  String.valueOf(images[i]));
-                }
-            });
+            //ako su vec dvije izabrane
+           /* if(firstImageViewSelected!=null && secondImageViewSeelected!=null){
+                Log.d("aa", "KLIKNUT INDEX "+ i+ " ALI SE NE OKRECE");
+                return;
+            }*/
 
             //  clickedImageViews[i]=true;
             //  ((ImageView) view).setClickable(false);
-            ((ImageView) view).setEnabled(false);
-
             if(firstImageViewSelected == null){
                 firstMemoryCardClickedIndex = i;
                 firstImageViewSelected = (ImageView) view;
                 firstMemoryCard = memoryCards.get(i);
-                //firstImageViewSelected.setClickable(false);
-                //firstImageViewSelected.setOnClickListener(null);
+                //clickedImageViews[i]=true;
+
+                firstImageViewSelected.setEnabled(false);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        flipImageAnimation((ImageView) view,  String.valueOf(images[i]));
+                    }
+                });
             }
-            else {
+            else if (firstImageViewSelected!= null && secondImageViewSeelected==null){
                 secondMemoryCardClickedIndex = i;
+                //clickedImageViews[i]=true;
                 secondImageViewSeelected = (ImageView) view;
                 secondMemoryCard = memoryCards.get(i);
 
-                Log.d("aa", "kliknute" + firstMemoryCardClickedIndex+ " " +secondMemoryCardClickedIndex);
+                ((ImageView) view).setEnabled(false);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        flipImageAnimation((ImageView) view,  String.valueOf(images[i]));
+                    }
+                });
+
+                Log.d("tag", "odabrane " + firstMemoryCardClickedIndex+ " " +secondMemoryCardClickedIndex);
 
                 //provjeri poklapanje
                 if(firstMemoryCard.getMemoryCard_id() == secondMemoryCard.getMemoryCard_id()){
-                   /* firstImageViewSelected.setEnabled(false);
-                    secondImageViewSeelected.setClickable(false);*/
-
-                    //   Toast.makeText(getApplicationContext(), "Cestitam", Toast.LENGTH_SHORT).show();
-
+                    clickedImageViews[firstMemoryCardClickedIndex]=true;
+                    clickedImageViews[secondMemoryCardClickedIndex]=true;
                     firstImageViewSelected = null;
                     secondImageViewSeelected = null;
                     firstMemoryCard = null;
                     secondMemoryCard = null;
+                    Toast.makeText(getContext(), "Bravo!", Toast.LENGTH_SHORT).show();
+                    playSound();
+                    counter--;
                 }
                 else{
                     //rotiranje sa delayom zbog iscrtavanja
@@ -156,8 +198,8 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
                             flipImageAnimation(firstImageViewSelected, "ic_empty_card");
                             flipImageAnimation(secondImageViewSeelected, "ic_empty_card");
 
-                            //   clickedImageViews[firstMemoryCardClickedIndex]= false;
-                            //   clickedImageViews[secondMemoryCardClickedIndex]= false;
+                            //clickedImageViews[firstMemoryCardClickedIndex]= false;
+                            //clickedImageViews[secondMemoryCardClickedIndex]= false;
                             firstImageViewSelected.setEnabled(true);
                             secondImageViewSeelected.setEnabled(true);
 
@@ -171,13 +213,11 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
                     }, 1000);
                 }
             }
+            if(counter==0){
+                Toast.makeText(getContext(), "Pronasli ste sve parove!", Toast.LENGTH_SHORT).show();
+                playSound();
+            }
         }
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        gridView.setNumColumns(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2);
-        super.onConfigurationChanged(newConfig);
     }
 
     private static void flipImageAnimation(ImageView imageViewForChanging, String imageToShowPath){
@@ -203,5 +243,40 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
         });
 
         oa1.start();
+    }
+    public static List<MemoryCard> getRandomMemoryCardsFromDatabase(int numberOfMemoryCards)
+    {
+        //check if number is odd
+        if(numberOfMemoryCards % 2 != 0)
+            return null;
+        List<MemoryCard> memoryCards=MainActivity.getMemoryCardDatabase().getMemoryCardDao().getMemoryCard();
+        Collections.shuffle(memoryCards);
+        List<MemoryCard> newList=new ArrayList<>();
+        int counter=0;
+            for(MemoryCard memoryCard:memoryCards) {
+                if(counter==numberOfMemoryCards/2)
+                    break;
+                newList.add(memoryCard);
+                newList.add(memoryCard);
+                counter++;
+            }
+
+        Collections.shuffle(newList);
+        return newList;
+    }
+
+    private void setSound()
+    {
+        AudioAttributes audioAttributes = new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).setUsage(AudioAttributes.USAGE_GAME).build();
+        soundPool = new SoundPool.Builder().setMaxStreams(1).setAudioAttributes(audioAttributes).build();
+        sound= soundPool.load(getContext(),R.raw.match,1);
+
+
+
+    }
+    private void playSound()
+    {
+        soundPool.play(sound,1,1,1,0,1);
+
     }
 }

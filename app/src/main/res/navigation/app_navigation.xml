@@ -27,5 +27,9 @@
         android:id="@+id/gameFragment"
         android:name="org.unibl.etf.memory.GameFragment"
         android:label="fragment_game"
-        tools:layout="@layout/fragment_game" />
+        tools:layout="@layout/fragment_game" >
+        <action
+            android:id="@+id/game_finished"
+            app:destination="@id/levelsScreenFragment" />
+    </fragment>
 </navigation>
