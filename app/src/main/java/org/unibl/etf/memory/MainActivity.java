@@ -1,17 +1,14 @@
 package org.unibl.etf.memory;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.unibl.etf.memory.Database.MemoryCard;
-import org.unibl.etf.memory.Database.MemoryCardDatabase;
+import org.unibl.etf.memory.database.MemoryCard;
+import org.unibl.etf.memory.database.MemoryCardDatabase;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -28,19 +25,6 @@ public class MainActivity extends AppCompatActivity {
       //  displayList();
     }
 
-    public void startGame(View view){
-        Intent intent = new Intent(MainActivity.this,LevelsActivity.class);
-        startActivity(intent);
-
-    }
-
-    /*
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-
-        Toast.makeText(this, "Promjena orjentacije sa Maina", Toast.LENGTH_SHORT).show();
-    }
-    */
 
     private void displayList() {
         memoryCardDatabase = MemoryCardDatabase.getInstance(getApplicationContext());

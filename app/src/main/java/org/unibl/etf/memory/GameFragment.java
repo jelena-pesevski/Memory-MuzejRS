@@ -4,11 +4,11 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.os.Handler;
 import android.util.Log;
@@ -23,8 +23,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import org.unibl.etf.memory.Adapters.GridViewAdapter;
-import org.unibl.etf.memory.Database.MemoryCard;
+import org.unibl.etf.memory.adapters.GridViewAdapter;
+import org.unibl.etf.memory.database.MemoryCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
     //info za svaki imageView da li je vec clicked
     private boolean[] clickedImageViews;
     private int[] images;
-    private int[] backroundImages;
+    private int counter=0;
     private GridView gridView;
     private Handler handler;
 
@@ -69,32 +69,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
 
         loadImageViews();
         setGridviewSize();
-
-//
-//        //get screen size
-//        Display display = getActivity().getWindowManager().getDefaultDisplay();
-//        int width = display.getWidth();
-//        int height = display.getHeight();
-//        double padding = 9;
-//
-//        //ovdje promijeniti, staviti if
-//        int sizeOfCard = (int)(width/columnsNum - 2*columnsNum*padding);
-//
-//        Log.d("aa", "-----------------------------------Velicina karte-> " + sizeOfCard);
-//        gridView = (GridView) root.findViewById(R.id.gridViewImages);
-//        gridView.setNumColumns(columnsNum);
-//
-//        //loadImageViews();
-//
-//        GridViewAdapter gridViewAdapter = new GridViewAdapter(getContext(), backroundImages, sizeOfCard, sizeOfCard);
-//        gridView.setAdapter(gridViewAdapter);
-//        gridView.setOnItemClickListener(this);
-
-
-        //loadImageViews();
-        //setGridviewSize();
-
-
+        counter=images.length/2;
         return root;
     }
 
@@ -133,7 +108,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
         gridView.setNumColumns(columnsNum);
 
         //GridViewAdapter gridViewAdapter = new GridViewAdapter(getContext(), backroundImages, sizeOfCard, sizeOfCard);
-        GridViewAdapter gridViewAdapter = new GridViewAdapter(gridView.getContext(), backroundImages, cardWidth, cardHeight);
+        GridViewAdapter gridViewAdapter = new GridViewAdapter(gridView.getContext(), images, clickedImageViews, cardWidth, cardHeight);
         gridView.setAdapter(gridViewAdapter);
         gridView.setOnItemClickListener(this);
     }
@@ -155,10 +130,6 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
         }
 
         clickedImageViews = new boolean[columnsNum*rowsNum];
-        backroundImages= new int[columnsNum*rowsNum];
-        for(int i = 0;i<columnsNum*rowsNum;i++){
-            backroundImages[i] = R.drawable.ic_empty_card;
-        }
     }
 
 
@@ -177,6 +148,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
                 firstMemoryCardClickedIndex = i;
                 firstImageViewSelected = (ImageView) view;
                 firstMemoryCard = memoryCards.get(i);
+                clickedImageViews[i]=true;
 
                 firstImageViewSelected.setEnabled(false);
                 handler.post(new Runnable() {
@@ -188,6 +160,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
             }
             else if (firstImageViewSelected!= null && secondImageViewSeelected==null){
                 secondMemoryCardClickedIndex = i;
+                clickedImageViews[i]=true;
                 secondImageViewSeelected = (ImageView) view;
                 secondMemoryCard = memoryCards.get(i);
 
@@ -203,10 +176,14 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
 
                 //provjeri poklapanje
                 if(firstMemoryCard.getMemoryCard_id() == secondMemoryCard.getMemoryCard_id()){
+                    clickedImageViews[firstMemoryCardClickedIndex]=true;
+                    clickedImageViews[secondMemoryCardClickedIndex]=true;
                     firstImageViewSelected = null;
                     secondImageViewSeelected = null;
                     firstMemoryCard = null;
                     secondMemoryCard = null;
+                    Toast.makeText(getContext(), "Bravo!", Toast.LENGTH_SHORT).show();
+                    counter--;
                 }
                 else{
                     //rotiranje sa delayom zbog iscrtavanja
@@ -216,8 +193,8 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
                             flipImageAnimation(firstImageViewSelected, "ic_empty_card");
                             flipImageAnimation(secondImageViewSeelected, "ic_empty_card");
 
-                            //   clickedImageViews[firstMemoryCardClickedIndex]= false;
-                            //   clickedImageViews[secondMemoryCardClickedIndex]= false;
+                            clickedImageViews[firstMemoryCardClickedIndex]= false;
+                            clickedImageViews[secondMemoryCardClickedIndex]= false;
                             firstImageViewSelected.setEnabled(true);
                             secondImageViewSeelected.setEnabled(true);
 
@@ -231,10 +208,11 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
                     }, 1000);
                 }
             }
+            if(counter==0){
+                Toast.makeText(getContext(), "Pronasli ste sve parove!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
-
-
 
     private static void flipImageAnimation(ImageView imageViewForChanging, String imageToShowPath){
         final ObjectAnimator oa1 = ObjectAnimator.ofFloat(imageViewForChanging, "scaleX", 1f, 0f);

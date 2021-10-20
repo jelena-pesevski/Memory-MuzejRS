@@ -1,28 +1,31 @@
-package org.unibl.etf.memory.Adapters;
+package org.unibl.etf.memory.adapters;
 
-import static android.widget.ImageView.ScaleType.CENTER_CROP;
 import static android.widget.ImageView.ScaleType.FIT_CENTER;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import org.unibl.etf.memory.R;
+
 public class GridViewAdapter extends BaseAdapter {
 
     Context c;
     int[] images;
+    boolean[] isFlipped;
 
     int width, height;
 
-    public GridViewAdapter(Context c, int[] images, int width, int height){
+    public GridViewAdapter(Context c, int[] images, boolean[] isFlipped, int width, int height){
         this.c = c;
         this.images = images;
+        this.isFlipped=isFlipped;
         this.width = width;
         this.height = height;
+
     }
     @Override
     public int getCount() {
@@ -42,7 +45,12 @@ public class GridViewAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ImageView imageView = new ImageView(c);
-        imageView.setImageResource(images[i]);
+        if(isFlipped[i]){
+            imageView.setImageResource(images[i]);
+        }else{
+            imageView.setImageResource(R.drawable.ic_empty_card);
+        }
+      //  imageView.setImageResource(images[i]);
 
         imageView.setScaleType(FIT_CENTER);
         //imageView.setScaleType(ImageView.ScaleType.FIT_XY);
