@@ -77,6 +77,10 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
         super.onConfigurationChanged(newConfig);
 
         setGridviewSize();
+        firstImageViewSelected = null;
+        secondImageViewSeelected = null;
+        firstMemoryCard = null;
+        secondMemoryCard = null;
     }
 
     private void setGridviewSize(){
@@ -143,7 +147,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
                 firstMemoryCardClickedIndex = i;
                 firstImageViewSelected = (ImageView) view;
                 firstMemoryCard = memoryCards.get(i);
-                clickedImageViews[i]=true;
+                //clickedImageViews[i]=true;
 
                 firstImageViewSelected.setEnabled(false);
                 handler.post(new Runnable() {
@@ -155,7 +159,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
             }
             else if (firstImageViewSelected!= null && secondImageViewSeelected==null){
                 secondMemoryCardClickedIndex = i;
-                clickedImageViews[i]=true;
+                //clickedImageViews[i]=true;
                 secondImageViewSeelected = (ImageView) view;
                 secondMemoryCard = memoryCards.get(i);
 
@@ -188,8 +192,8 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
                             flipImageAnimation(firstImageViewSelected, "ic_empty_card");
                             flipImageAnimation(secondImageViewSeelected, "ic_empty_card");
 
-                            clickedImageViews[firstMemoryCardClickedIndex]= false;
-                            clickedImageViews[secondMemoryCardClickedIndex]= false;
+                            //clickedImageViews[firstMemoryCardClickedIndex]= false;
+                            //clickedImageViews[secondMemoryCardClickedIndex]= false;
                             firstImageViewSelected.setEnabled(true);
                             secondImageViewSeelected.setEnabled(true);
 
