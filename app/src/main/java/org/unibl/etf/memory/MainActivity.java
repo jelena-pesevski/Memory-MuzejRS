@@ -1,5 +1,6 @@
 package org.unibl.etf.memory;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startService(new Intent( this, BackgroundMusic.class ) );
 
         displayList();
     }
@@ -53,5 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
     public static MemoryCardDatabase getMemoryCardDatabase() {
         return memoryCardDatabase;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopService(new Intent(this, BackgroundMusic.class));
+
     }
 }
