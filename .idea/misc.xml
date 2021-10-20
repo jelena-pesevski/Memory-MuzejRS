@@ -3,46 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout-land/activity_levels.xml" value="0.25" />
+        <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout-land/fragment_start_screen.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout/fragment_game.xml" value="0.22" />
+        <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout/fragment_levels_screen.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout/fragment_start_screen.xml" value="0.1421875" />
+        <entry key="..\:/Users/dragan.ivanovic/Desktop/MemoryGameMuzej/Memory-MuzejRS/app/src/main/res/layout/fragment_levels_screen.xml" value="0.13020833333333334" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1453125" />
-        <entry key="app/src/main/res/drawable/ic_apple.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_bambi.xml" value="0.1453125" />
-        <entry key="app/src/main/res/drawable/ic_bambi_sticker.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_banana.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_bear.xml" value="0.1453125" />
-        <entry key="app/src/main/res/drawable/ic_bear_sticker.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_bird1.xml" value="0.1453125" />
         <entry key="app/src/main/res/drawable/ic_bird2.xml" value="0.1453125" />
-        <entry key="app/src/main/res/drawable/ic_birdflipped.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_board.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_board2.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_btn.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_bunny.xml" value="0.1453125" />
-        <entry key="app/src/main/res/drawable/ic_bunny_sticker.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_buttonimg.xml" value="0.128125" />
-        <entry key="app/src/main/res/drawable/ic_cabbage.xml" value="0.128125" />
-        <entry key="app/src/main/res/drawable/ic_carrot.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_cauliflower.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_cherry.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_cucumber.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_eggplant.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_empty_card.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_garlic.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_grapes.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_kiwi.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1453125" />
-        <entry key="app/src/main/res/drawable/ic_lemon.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_orange.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_pear.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_peas.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_pepper.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_pineapple.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_potato.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_raspberry.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_red_onion.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_strawberry.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_tomato.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_watermelon.xml" value="0.1" />
         <entry key="app/src/main/res/layout-land/activity_main.xml" value="0.15123456790123457" />
         <entry key="app/src/main/res/layout/activity_first_level.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_game.xml" value="0.15081521739130435" />

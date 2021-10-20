@@ -1,4 +1,4 @@
-package org.unibl.etf.memory.Database;
+package org.unibl.etf.memory.database;
 
 import android.content.Context;
 
@@ -27,7 +27,7 @@ public abstract class MemoryCardDatabase extends RoomDatabase{
                 if(null == memoryCardDB)
                 {
 
-                    memoryCardDB=Room.databaseBuilder(context.getApplicationContext(),MemoryCardDatabase.class,Constants.DB_NAME).createFromAsset("database/DataBase.db").build();
+                    memoryCardDB=Room.databaseBuilder(context.getApplicationContext(),MemoryCardDatabase.class,Constants.DB_NAME).createFromAsset("database/"+Constants.DB_NAME).allowMainThreadQueries().build();
 
                 }
             }
