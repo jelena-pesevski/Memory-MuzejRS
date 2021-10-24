@@ -3,6 +3,7 @@ package org.unibl.etf.memory;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startService(new Intent( this, BackgroundMusic.class ) );
 
         displayList();
     }
@@ -60,7 +60,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        stopService(new Intent(this, BackgroundMusic.class));
+        //stopService(new Intent(this, BackgroundMusic.class));
+        Log.d("TAG", "onDestroy");
 
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        stopService(new Intent(this, BackgroundMusic.class));
+        Log.d("TAG", "onStop");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        Log.d("TAG", "onResume");
+        startService(new Intent( this, BackgroundMusic.class ) );
     }
 }

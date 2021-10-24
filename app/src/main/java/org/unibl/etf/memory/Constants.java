@@ -20,4 +20,6 @@ public class Constants {
     public static final int rows_lvl3_portrait=5;
     public static final int columns_lvl3_land=5;
     public static final int rows_lvl3_land=4;
+
+    public static final int cardsPadding=2;
 }

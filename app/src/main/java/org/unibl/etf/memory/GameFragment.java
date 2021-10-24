@@ -93,7 +93,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
         int height = display.getHeight();
-        double padding = 9;
+        double padding = Constants.cardsPadding;
 
         int orientation = this.getResources().getConfiguration().orientation;
 
@@ -109,8 +109,8 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
             columnsNum = getArguments().getInt("numColumnsLandscape", 2);
             rowsNum = getArguments().getInt("numRowsLandscape", 2);
 
-            cardWidth = (int)(width/columnsNum - 2*columnsNum*padding);
-            cardHeight = (int)(( height)/rowsNum - 2*rowsNum*padding);
+            cardWidth = (int)(width/columnsNum - 2*columnsNum*5);
+            cardHeight = (int)((height)/rowsNum - 2*rowsNum*5);
         }
 
         gridView.setNumColumns(columnsNum);
