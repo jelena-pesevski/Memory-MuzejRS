@@ -3,33 +3,28 @@ package org.unibl.etf.memory;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.unibl.etf.memory.Database.MemoryCard;
-import org.unibl.etf.memory.Database.MemoryCardDatabase;
+import org.unibl.etf.memory.database.MemoryCard;
+import org.unibl.etf.memory.database.MemoryCardDatabase;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MemoryCardDatabase memoryCardDatabase;
+    private static MemoryCardDatabase memoryCardDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        startService(new Intent( this, BackgroundMusic.class ) );
 
-      //  displayList();
+        displayList();
     }
 
-    public void startGame(View view){
-        Intent intent = new Intent(MainActivity.this,LevelsActivity.class);
-        startActivity(intent);
-
-    }
 
     private void displayList() {
         memoryCardDatabase = MemoryCardDatabase.getInstance(getApplicationContext());
@@ -56,5 +51,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
+    }
+
+    public static MemoryCardDatabase getMemoryCardDatabase() {
+        return memoryCardDatabase;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopService(new Intent(this, BackgroundMusic.class));
+
     }
 }
