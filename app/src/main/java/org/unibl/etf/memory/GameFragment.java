@@ -186,7 +186,6 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
                     secondImageViewSeelected = null;
                     firstMemoryCard = null;
                     secondMemoryCard = null;
-                    Toast.makeText(getContext(), "Bravo!", Toast.LENGTH_SHORT).show();
                     playSound();
                     counter--;
                 }
@@ -214,7 +213,6 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
                 }
             }
             if(counter==0){
-                Toast.makeText(getContext(), "Pronasli ste sve parove!", Toast.LENGTH_SHORT).show();
                 playSound();
             }
         }
@@ -271,9 +269,8 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
         soundPool = new SoundPool.Builder().setMaxStreams(1).setAudioAttributes(audioAttributes).build();
         sound= soundPool.load(getContext(),R.raw.match,1);
 
-
-
     }
+
     private void playSound()
     {
         soundPool.play(sound,1,1,1,0,1);

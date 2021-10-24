@@ -27,23 +27,10 @@ public class LevelsScreenFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("numColumnsPortrait", 2);
-                bundle.putInt("numRowsPortrait", 2);
-                bundle.putInt("numRowsLandscape", 2);
-                bundle.putInt("numColumnsLandscape", 2);
-
-                Navigation.findNavController(root).navigate(R.id.level_chosen, bundle);
-            }
-        });
-
-        imageViewBear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("numColumnsPortrait", 2);
-                bundle.putInt("numRowsPortrait", 3);
-                bundle.putInt("numRowsLandscape", 2);
-                bundle.putInt("numColumnsLandscape", 3);
+                bundle.putInt("numColumnsPortrait", Constants.columns_lvl1_portrait);
+                bundle.putInt("numRowsPortrait", Constants.rows_lvl1_portrait);
+                bundle.putInt("numRowsLandscape", Constants.rows_lvl1_land);
+                bundle.putInt("numColumnsLandscape", Constants.columns_lvl1_land);
 
                 Navigation.findNavController(root).navigate(R.id.level_chosen, bundle);
             }
@@ -53,10 +40,23 @@ public class LevelsScreenFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("numColumnsPortrait", 4);
-                bundle.putInt("numRowsPortrait", 5);
-                bundle.putInt("numRowsLandscape", 4);
-                bundle.putInt("numColumnsLandscape", 5);
+                bundle.putInt("numColumnsPortrait", Constants.columns_lvl2_portrait);
+                bundle.putInt("numRowsPortrait", Constants.rows_lvl2_portrait);
+                bundle.putInt("numRowsLandscape", Constants.rows_lvl2_land);
+                bundle.putInt("numColumnsLandscape", Constants.columns_lvl2_land);
+
+                Navigation.findNavController(root).navigate(R.id.level_chosen, bundle);
+            }
+        });
+
+        imageViewBear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("numColumnsPortrait", Constants.columns_lvl3_portrait);
+                bundle.putInt("numRowsPortrait", Constants.rows_lvl3_portrait);
+                bundle.putInt("numRowsLandscape", Constants.rows_lvl3_land);
+                bundle.putInt("numColumnsLandscape", Constants.columns_lvl3_land);
 
                 Navigation.findNavController(root).navigate(R.id.level_chosen, bundle);
             }
