@@ -92,7 +92,7 @@
 
     <TextView
         android:id="@+id/description"
-        android:layout_width="@dimen/_160sdp"
+        android:layout_width="@dimen/_165sdp"
         android:layout_height="@dimen/_130sdp"
         android:background="@drawable/ic_board"
         android:foregroundGravity="center"

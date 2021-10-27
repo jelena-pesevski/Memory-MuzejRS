@@ -69,8 +69,8 @@
 
     <TextView
         android:id="@+id/description"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_150sdp"
+        android:layout_width="@dimen/_168sdp"
+        android:layout_height="@dimen/_140sdp"
         android:background="@drawable/ic_board"
         android:gravity="center"
         android:text="@string/levels_page_txt"

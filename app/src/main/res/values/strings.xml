@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Игра меморије</string>
-    <string name="play">ИГРАЈ</string>
-    <string name="title">ИГРА МЕМОРИЈЕ</string>
-    <string name="levels_page_txt">ОДАБЕРИ НИВО ПРИТИСКОМ НА ЖЕЉЕНУ ЖИВОТИЊУ</string>
-    <string name="db_name">DataBase</string>
-    <string name="Table_Name">MemoryCard</string>
+    <string name="app_name">Memory game</string>
+    <string name="play">PLAY</string>
+    <string name="title">MEMORY GAME</string>
+    <string name="levels_page_txt">CHOOSE LEVEL BY CLICKING ON ONE OF THE ANIMALS</string>
+    <string name="db_name" translatable="false">DataBase</string>
+    <string name="Table_Name" translatable="false">MemoryCard</string>
 </resources>
