@@ -1,4 +1,4 @@
-package org.unibl.etf.memory;
+package org.unibl.etf.memory.utils;
 
 public class Constants {
 

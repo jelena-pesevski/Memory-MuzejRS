@@ -4,4 +4,5 @@
     <string name="play">ИГРАЈ</string>
     <string name="title">ИГРА МЕМОРИЈЕ</string>
     <string name="levels_page_txt">ОДАБЕРИ НИВО ПРИТИСКОМ НА ЖЕЉЕНУ ЖИВОТИЊУ</string>
+    <string name="gameOverMsg">БРАВО!</string>
 </resources>
