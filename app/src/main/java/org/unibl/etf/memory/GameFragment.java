@@ -46,9 +46,9 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
     private GridView gridView;
     private Handler handler;
 
-    ImageView firstImageViewSelected = null, secondImageViewSeelected = null;
-    MemoryCard firstMemoryCard = null, secondMemoryCard = null;
-    int firstMemoryCardClickedIndex = -1, secondMemoryCardClickedIndex = -1;
+    private ImageView firstImageViewSelected = null, secondImageViewSeelected = null;
+    private MemoryCard firstMemoryCard = null, secondMemoryCard = null;
+    private int firstMemoryCardClickedIndex = -1, secondMemoryCardClickedIndex = -1;
 
     private View root;
     @Override
@@ -115,7 +115,6 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
 
         gridView.setNumColumns(columnsNum);
 
-        //GridViewAdapter gridViewAdapter = new GridViewAdapter(getContext(), backroundImages, sizeOfCard, sizeOfCard);
         GridViewAdapter gridViewAdapter = new GridViewAdapter(gridView.getContext(), images, clickedImageViews, cardWidth, cardHeight);
         gridView.setAdapter(gridViewAdapter);
         gridView.setOnItemClickListener(this);
@@ -140,19 +139,10 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         if(view.isEnabled()){
-            //ako su vec dvije izabrane
-           /* if(firstImageViewSelected!=null && secondImageViewSeelected!=null){
-                Log.d("aa", "KLIKNUT INDEX "+ i+ " ALI SE NE OKRECE");
-                return;
-            }*/
-
-            //  clickedImageViews[i]=true;
-            //  ((ImageView) view).setClickable(false);
             if(firstImageViewSelected == null){
                 firstMemoryCardClickedIndex = i;
                 firstImageViewSelected = (ImageView) view;
                 firstMemoryCard = memoryCards.get(i);
-                //clickedImageViews[i]=true;
 
                 firstImageViewSelected.setEnabled(false);
                 handler.post(new Runnable() {
@@ -164,7 +154,6 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
             }
             else if (firstImageViewSelected!= null && secondImageViewSeelected==null){
                 secondMemoryCardClickedIndex = i;
-                //clickedImageViews[i]=true;
                 secondImageViewSeelected = (ImageView) view;
                 secondMemoryCard = memoryCards.get(i);
 
@@ -178,7 +167,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
 
                 Log.d("tag", "odabrane " + firstMemoryCardClickedIndex+ " " +secondMemoryCardClickedIndex);
 
-                //provjeri poklapanje
+                //check if cards match
                 if(firstMemoryCard.getMemoryCard_id() == secondMemoryCard.getMemoryCard_id()){
                     clickedImageViews[firstMemoryCardClickedIndex]=true;
                     clickedImageViews[secondMemoryCardClickedIndex]=true;
@@ -190,19 +179,17 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
                     counter--;
                 }
                 else{
-                    //rotiranje sa delayom zbog iscrtavanja
+                    //flipping with delay
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             flipImageAnimation(firstImageViewSelected, "ic_empty_card");
                             flipImageAnimation(secondImageViewSeelected, "ic_empty_card");
 
-                            //clickedImageViews[firstMemoryCardClickedIndex]= false;
-                            //clickedImageViews[secondMemoryCardClickedIndex]= false;
                             firstImageViewSelected.setEnabled(true);
                             secondImageViewSeelected.setEnabled(true);
 
-                            //ne moze se izvuci izvan else zbog toga sto mora da se izvrsi tacno nakon animacija iznad
+                            //has to be done after the animation above
                             firstImageViewSelected = null;
                             secondImageViewSeelected = null;
                             firstMemoryCard = null;
@@ -213,7 +200,19 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
                 }
             }
             if(counter==0){
-                playSound();
+                //go to game over fragment
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(getActivity()!=null){
+                            Fragment gameOverFragment = new GameOverFragment();
+
+                            getActivity().getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.navHostFragment, gameOverFragment, "GAME_OVER_FRAGMENT")
+                                    .commit();
+                        }
+                    }
+                }, 2000);
             }
         }
     }
@@ -242,6 +241,8 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
 
         oa1.start();
     }
+
+
     public static List<MemoryCard> getRandomMemoryCardsFromDatabase(int numberOfMemoryCards)
     {
         //check if number is odd

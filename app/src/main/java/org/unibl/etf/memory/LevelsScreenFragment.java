@@ -67,7 +67,6 @@ public class LevelsScreenFragment extends Fragment {
         imageViewBunny.startAnimation(animationZoomInOut);
         imageViewBear.startAnimation(animationZoomInOut);
         imageViewBambi.startAnimation(animationZoomInOut);
-
         return root;
     }
 }
