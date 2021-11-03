@@ -28,6 +28,7 @@ public class BackgroundMusic extends Service {
         super.onDestroy();
         mediaPlayer.stop();
     }
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
