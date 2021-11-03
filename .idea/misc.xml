@@ -5,15 +5,21 @@
       <map>
         <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout-land/activity_levels.xml" value="0.25" />
         <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout-land/fragment_game.xml" value="0.22195121951219512" />
-        <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout-land/fragment_game_over.xml" value="0.22708333333333333" />
         <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout-land/fragment_levels_screen.xml" value="0.22" />
         <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout-land/fragment_start_screen.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout/activity_game.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout/fragment_game.xml" value="0.1" />
-        <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout/fragment_game_over.xml" value="0.18" />
+        <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout/fragment_game.xml" value="0.22" />
         <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout/fragment_levels_screen.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Jelena/Desktop/Memory-MuzejRS/app/src/main/res/layout/fragment_start_screen.xml" value="0.1421875" />
+        <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/drawable/ic_sound_off.xml" value="0.2203125" />
+        <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/drawable/ic_sound_on.xml" value="0.2203125" />
+        <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout-land/fragment_game.xml" value="0.15" />
+        <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout-land/fragment_start_screen.xml" value="0.22" />
+        <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout/fragment_game.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout/fragment_game_over.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Milica/Desktop/Memory-MuzejRS/app/src/main/res/layout/fragment_start_screen.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/dragan.ivanovic/Desktop/MemoryGameMuzej/Memory-MuzejRS/app/src/main/res/layout/fragment_levels_screen.xml" value="0.13020833333333334" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1453125" />
         <entry key="app/src/main/res/drawable/ic_bambi.xml" value="0.1453125" />
