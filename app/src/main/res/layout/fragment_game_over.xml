@@ -17,24 +17,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/background_blur" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/board_img"-->
-<!--        android:layout_width="@dimen/_250sdp"-->
-<!--        android:layout_height="@dimen/_190sdp"-->
-<!--        android:background="@drawable/ic_board"-->
-<!--        android:gravity="center"-->
-<!--        android:paddingTop="@dimen/_3sdp"-->
-<!--        android:paddingBottom="@dimen/_100sdp"-->
-<!--        android:textAlignment="center"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="@dimen/_31ssp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.162" />-->
-
 
     <!--    <ImageView-->
 <!--        android:id="@+id/bambi_img"-->
@@ -59,11 +41,33 @@
 <!--        app:layout_constraintVertical_bias="0.927"-->
 <!--        app:srcCompat="@drawable/ic_bunny" />-->
 
+    <nl.dionsegijn.konfetti.KonfettiView
+        android:id="@+id/viewKonfetti"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/board_img"
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:background="@drawable/ic_bubble"
+        android:gravity="center"
+        android:paddingTop="@dimen/_3sdp"
+        android:paddingBottom="@dimen/_100sdp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_31ssp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bear_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.928" />
 
     <ImageView
         android:id="@+id/bear_img"
         android:layout_width="@dimen/_200sdp"
-        android:layout_height="@dimen/_200sdp"
+        android:layout_height="@dimen/_250sdp"
         android:layout_marginBottom="88dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,9 +75,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_bear" />
 
-    <nl.dionsegijn.konfetti.KonfettiView
-        android:id="@+id/viewKonfetti"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
