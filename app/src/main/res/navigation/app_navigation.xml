@@ -29,7 +29,12 @@
         android:label="fragment_game"
         tools:layout="@layout/fragment_game" >
         <action
-            android:id="@+id/game_finished"
-            app:destination="@id/levelsScreenFragment" />
+            android:id="@+id/action_gameOver"
+            app:destination="@id/gameOverFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/gameOverFragment"
+        android:name="org.unibl.etf.memory.GameOverFragment"
+        android:label="fragment_game_over"
+        tools:layout="@layout/fragment_game_over" />
 </navigation>

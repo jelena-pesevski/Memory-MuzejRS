@@ -57,13 +57,6 @@ public class MainActivity extends AppCompatActivity {
         return memoryCardDatabase;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        //stopService(new Intent(this, BackgroundMusic.class));
-        Log.d("TAG", "onDestroy");
-
-    }
 
     @Override
     public void onStop(){
@@ -75,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
+        startService(new Intent( this, BackgroundMusic.class ));
         Log.d("TAG", "onResume");
-        startService(new Intent( this, BackgroundMusic.class ) );
     }
 }

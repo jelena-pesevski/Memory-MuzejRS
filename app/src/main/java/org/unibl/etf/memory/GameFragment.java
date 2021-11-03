@@ -50,7 +50,6 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
     MemoryCard firstMemoryCard = null, secondMemoryCard = null;
     int firstMemoryCardClickedIndex = -1, secondMemoryCardClickedIndex = -1;
 
-
     private View root;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
