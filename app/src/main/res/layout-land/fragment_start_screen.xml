@@ -93,7 +93,6 @@
         android:id="@+id/bunnyImg"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bambiImg"
         app:layout_constraintHorizontal_bias="0.545"
@@ -104,11 +103,11 @@
 
     <ImageView
         android:id="@+id/sound_btn"
-        android:layout_width="@dimen/_33sdp"
-        android:layout_height="@dimen/_33sdp"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_45sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
-        android:src="@drawable/ic_sound_on"
+        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

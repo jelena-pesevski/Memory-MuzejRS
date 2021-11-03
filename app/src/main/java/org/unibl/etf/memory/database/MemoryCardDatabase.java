@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import org.unibl.etf.memory.Constants;
+import org.unibl.etf.memory.utils.Constants;
 
 @Database(entities = { MemoryCard.class }, version = 1)
 @TypeConverters({DateRoomConverter.class})

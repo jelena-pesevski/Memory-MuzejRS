@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import org.unibl.etf.memory.Constants;
+import org.unibl.etf.memory.utils.Constants;
 
 import java.util.List;
 

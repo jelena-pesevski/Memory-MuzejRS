@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import org.unibl.etf.memory.Constants;
+import org.unibl.etf.memory.utils.Constants;
 
 import java.io.Serializable;
 

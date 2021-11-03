@@ -2,9 +2,9 @@
     <string name="app_name">Memory game</string>
     <string name="play">PLAY</string>
     <string name="title">MEMORY GAME</string>
+    <string name="gameOverMsg">WELL DONE!</string>
     <string name="levels_page_txt">CHOOSE LEVEL BY CLICKING ON ONE OF THE ANIMALS</string>
     <string name="db_name" translatable="false">DataBase</string>
     <string name="Table_Name" translatable="false">MemoryCard</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

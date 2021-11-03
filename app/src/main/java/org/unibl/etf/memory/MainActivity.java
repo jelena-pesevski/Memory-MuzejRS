@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.unibl.etf.memory.database.MemoryCard;
 import org.unibl.etf.memory.database.MemoryCardDatabase;
+import org.unibl.etf.memory.utils.Preferences;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -25,11 +26,11 @@ public class MainActivity extends AppCompatActivity {
         displayList();
     }
 
-
     private void displayList() {
         memoryCardDatabase = MemoryCardDatabase.getInstance(getApplicationContext());
         new MainActivity.RetrieveTask(this).execute();
     }
+
     private static class RetrieveTask extends AsyncTask<Void, Void, List<MemoryCard>> {
 
         private WeakReference<MainActivity> activityReference;
@@ -59,16 +60,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public void onStop(){
-        super.onStop();
-        stopService(new Intent(this, BackgroundMusic.class));
-        Log.d("TAG", "onStop");
+    public void onPause(){
+        super.onPause();
+        if(Preferences.getIsMusicPlaying(this)) {
+            stopService(new Intent(this, BackgroundMusic.class));
+        }
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        startService(new Intent( this, BackgroundMusic.class ));
-        Log.d("TAG", "onResume");
+        if(Preferences.getIsMusicPlaying(this)){
+            startService(new Intent( this, BackgroundMusic.class ));
+        }
     }
 }

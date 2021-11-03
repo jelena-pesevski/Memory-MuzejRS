@@ -19,13 +19,14 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import org.unibl.etf.memory.adapters.GridViewAdapter;
 import org.unibl.etf.memory.database.MemoryCard;
+import org.unibl.etf.memory.utils.Constants;
+import org.unibl.etf.memory.utils.Preferences;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -88,6 +89,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
         secondMemoryCard = null;
     }
 
+    @SuppressWarnings("deprecation")
     private void setGridviewSize(){
         //get screen size
         Display display = getActivity().getWindowManager().getDefaultDisplay();
@@ -176,7 +178,11 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
                     secondImageViewSeelected = null;
                     firstMemoryCard = null;
                     secondMemoryCard = null;
-                    playSound();
+
+                    if(Preferences.getIsMusicPlaying(requireActivity())){
+                        playSound();
+                    }
+
                     counter--;
                 }
                 else{
