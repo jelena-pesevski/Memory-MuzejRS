@@ -46,15 +46,17 @@
 
     <TextView
         android:id="@+id/board_img"
-        android:layout_width="@dimen/_120sdp"
+        android:layout_width="@dimen/_135sdp"
         android:layout_height="@dimen/_110sdp"
         android:background="@drawable/ic_bubble"
         android:gravity="center"
-        android:paddingTop="@dimen/_3sdp"
-        android:paddingBottom="@dimen/_100sdp"
+        android:text="@string/gameOverMsg"
+
+        android:paddingBottom="@dimen/_25sdp"
         android:textAlignment="center"
+
         android:textColor="@color/white"
-        android:textSize="@dimen/_31ssp"
+        android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/bear_img"
         app:layout_constraintEnd_toEndOf="parent"
