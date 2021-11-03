@@ -48,8 +48,8 @@
 
     <TextView
         android:id="@+id/board_img"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_150sdp"
+        android:layout_width="@dimen/_130sdp"
+        android:layout_height="@dimen/_130sdp"
         android:background="@drawable/ic_bubble"
         android:gravity="center"
         android:paddingTop="@dimen/_3sdp"
@@ -62,19 +62,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.928" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/bear_img"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_250sdp"
-        android:layout_marginBottom="88dp"
+        android:layout_marginBottom="@dimen/_75sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.425"
+        app:layout_constraintHorizontal_bias="0.395"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_bear" />
 
+    <ImageView
+        android:id="@+id/home"
+        android:clickable="true"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:src="@drawable/ic_home_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bear_img"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
