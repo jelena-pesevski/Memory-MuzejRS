@@ -22,5 +22,5 @@ public class Constants {
     public static final int rows_lvl3_land=4;
 
     public static final double cardsPadding=2;
-    public static final double cardsPaddingLandscape = 6.5;
+    public static final double cardsPaddingLandscape = 7;
 }
