@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import org.unibl.etf.memory.adapters.GridViewAdapter;
 import org.unibl.etf.memory.database.MemoryCard;
@@ -205,11 +206,13 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
                     @Override
                     public void run() {
                         if(getActivity()!=null){
-                            Fragment gameOverFragment = new GameOverFragment();
+                         /*   Fragment gameOverFragment = new GameOverFragment();
 
                             getActivity().getSupportFragmentManager().beginTransaction()
                                     .replace(R.id.navHostFragment, gameOverFragment, "GAME_OVER_FRAGMENT")
-                                    .commit();
+                                    .commit();*/
+                            Navigation.findNavController(root).navigate(R.id.action_gameOver);
+
                         }
                     }
                 }, 2000);
