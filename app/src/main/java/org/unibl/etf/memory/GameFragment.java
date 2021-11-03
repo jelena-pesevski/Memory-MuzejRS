@@ -215,7 +215,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
 
                         }
                     }
-                }, 2000);
+                }, 1000);
             }
         }
     }
@@ -272,12 +272,10 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
         AudioAttributes audioAttributes = new AudioAttributes.Builder().setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).setUsage(AudioAttributes.USAGE_GAME).build();
         soundPool = new SoundPool.Builder().setMaxStreams(1).setAudioAttributes(audioAttributes).build();
         sound= soundPool.load(getContext(),R.raw.match,1);
-
     }
 
     private void playSound()
     {
         soundPool.play(sound,1,1,1,0,1);
-
     }
 }
