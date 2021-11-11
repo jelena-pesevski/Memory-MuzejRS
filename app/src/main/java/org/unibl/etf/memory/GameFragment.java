@@ -20,7 +20,9 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import org.unibl.etf.memory.adapters.GridViewAdapter;
@@ -38,6 +40,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
     private int rowsNum;
     private SoundPool soundPool;
     private int sound;
+    private MemoryCardsViewModel viewModel;
 
     private List<MemoryCard> memoryCards = new ArrayList<MemoryCard>();
 
@@ -73,13 +76,38 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
             rowsNum = getArguments().getInt("numRowsLandscape", 2);
         }
 
-        loadImageViews();
+        viewModel=new ViewModelProvider(getActivity()).get(MemoryCardsViewModel.class);
+        if(viewModel.getMemoryCards() == null) {
+            loadImageViews();
+            counter=images.length/2;
+            viewModel.setImages(images);
+            viewModel.setClickedImageViews(clickedImageViews);
+            viewModel.setMemoryCards(memoryCards);
+            viewModel.setCounter(counter);
+        }else{
+            memoryCards=viewModel.getMemoryCards();
+            images= viewModel.getImages();
+            clickedImageViews=viewModel.getClickedImageViews();
+            counter= viewModel.getCounter();
+        }
+
         setGridviewSize();
-        counter=images.length/2;
         return root;
     }
 
+
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        viewModel.setMemoryCards(memoryCards);
+        viewModel.setImages(images);
+        viewModel.setClickedImageViews(clickedImageViews);
+        viewModel.setCounter(counter);
+    }
+
+
+
+  /*  @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
@@ -88,7 +116,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
         secondImageViewSeelected = null;
         firstMemoryCard = null;
         secondMemoryCard = null;
-    }
+    }*/
 
     @SuppressWarnings("deprecation")
     private void setGridviewSize(){
@@ -213,6 +241,11 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
                     @Override
                     public void run() {
                         if(getActivity()!=null){
+                            viewModel.setMemoryCards(null);
+                            viewModel.setImages(null);
+                            viewModel.setClickedImageViews(null);
+                            viewModel.setCounter(0);
+
                          /*   Fragment gameOverFragment = new GameOverFragment();
 
                             getActivity().getSupportFragmentManager().beginTransaction()

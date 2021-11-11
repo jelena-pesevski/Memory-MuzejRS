@@ -4,8 +4,14 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import org.unibl.etf.memory.database.MemoryCard;
 import org.unibl.etf.memory.database.MemoryCardDatabase;
@@ -18,11 +24,13 @@ public class MainActivity extends AppCompatActivity {
 
     private static MemoryCardDatabase memoryCardDatabase;
 
+    private MemoryCardsViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        viewModel = new ViewModelProvider(this).get(MemoryCardsViewModel.class);
         displayList();
     }
 
@@ -73,5 +81,22 @@ public class MainActivity extends AppCompatActivity {
         if(Preferences.getIsMusicPlaying(this)){
             startService(new Intent( this, BackgroundMusic.class ));
         }
+    }
+
+
+    //reset view model da bi se razlikovalo kada se pritisne onBackPressed, a kad se desi configurationChanged
+    @Override
+    public void onBackPressed() {
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.navHostFragment);
+        Fragment fragment = navHostFragment.getChildFragmentManager().getFragments().get(0);
+
+        if(fragment instanceof GameFragment) {
+            viewModel.setCounter(0);
+            viewModel.setImages(null);
+            viewModel.setMemoryCards(null);
+            viewModel.setClickedImageViews(null);
+        }
+
+        super.onBackPressed();
     }
 }
