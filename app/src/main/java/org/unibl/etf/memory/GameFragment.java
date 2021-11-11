@@ -57,6 +57,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Log.d("TAG*****", "game screen on creATE view");
         root= inflater.inflate(R.layout.fragment_game, container, false);
         handler=new Handler(getActivity().getApplicationContext().getMainLooper());
 
